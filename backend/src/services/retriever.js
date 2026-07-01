@@ -49,7 +49,7 @@ export async function retrieveContext(question) {
   const faissMatches = await searchFaiss({ queryEmbedding: questionEmbedding, chunks, topK: 5 }).catch(() => null);
   if (faissMatches?.length) {
     const useful = faissMatches.filter((item) => item.score > 0.3);
-    return formatResult(question, useful, "faiss");
+    if (useful.length) return formatResult(question, useful, "faiss");
   }
 
   const ranked = chunks
