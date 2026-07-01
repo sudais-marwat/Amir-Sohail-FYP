@@ -1,0 +1,67 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: hadaf_chatbot
+      POSTGRES_USER: hadaf
+      POSTGRES_PASSWORD: hadaf_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hadaf -d hadaf_chatbot"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  faiss:
+    build:
+      context: ./faiss-service
+    ports:
+      - "8001:8001"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      PORT: 4000
+      DATABASE_URL: postgres://hadaf:hadaf_password@db:5432/hadaf_chatbot
+      JWT_SECRET: local-compose-secret-change-before-production
+      FRONTEND_ORIGIN: http://localhost:5173
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: gemini-1.5-flash
+      GEMINI_EMBEDDING_MODEL: text-embedding-004
+      FAISS_SERVICE_URL: http://faiss:8001
+      UPLOAD_DIR: /app/uploads
+    ports:
+      - "4000:4000"
+    volumes:
+      - api-uploads:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+      faiss:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        VITE_API_URL: http://localhost:4000/api
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres-data:
+  api-uploads:

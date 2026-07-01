@@ -1,0 +1,618 @@
+Hadaf College RAG Knowledge From Questions.xlsx
+
+## Sheet1
+1. Basic Hadaf College Information
+1 | What is the full official name of Hadaf Group of Colleges?
+2 | What is the short name used publicly? | HGC
+3 | What is the official introduction of Hadaf Group of Colleges? | Hadaf Group of Colleges, a flagship project of the Punjab Group of Colleges (PGC), is a leading educational network in Khyber Pakhtunkhwa. Headquartered in Peshawar, it offers quality Intermediate and BS programs through modern, purpose-built campuses with separate facilities for boys and girls
+4 | When was Hadaf Group of Colleges founded? | Founded in 2017, Hadaf Group of Colleges is a flagship project of the Punjab Group of Colleges, established to provide quality education across Khyber Pakhtunkhwa.
+5 | Who founded Hadaf Group of Colleges? | Hadaf Group of Colleges was established by the Punjab Group of Colleges under the leadership of Mian Amer Mahmood to provide quality education in Khyber Pakhtunkhwa
+6 | Why was Hadaf Group of Colleges established in KPK? | To expand access to quality education and improve academic opportunities in Khyber Pakhtunkhwa.
+7 | Is Hadaf Group of Colleges a project of Punjab Group of Colleges? | Yes
+8 | What is the exact official relationship between Hadaf and Punjab Group of Colleges? | Hadaf Group of Colleges is a flagship campus network operated under the Punjab Group of Colleges (PGC) in Khyber Pakhtunkhwa.
+9 | Is Hadaf only for KPK or also present in other provinces? | Yes, HGC is functioning only in KPK
+10 | What is the vision of Hadaf Group of Colleges? | We are humbled by the trust of millions and, over 38 years, remain committed to empowering youth and improving education standards across Pakistan through our extensive network of institutions.
+11 | What is the mission of Hadaf Group of Colleges? | To train students, to develop critical thinking, rational decision-making, clear expression, and strong work ethic, enabling them to contribute effectively toward building a cohesive, proud, and sovereign nation.
+12 | What are the core values of Hadaf? | Innovation, Discipline, Integrity and Empathy
+13 | What is the official slogan/tagline of Hadaf? | Let's Build Tomorrow Together
+14 | What achievements should be included in the chatbot? | Board Top Achievers
+15 | How many students are currently studying in Hadaf KPK? | Currently, more than 10K students are studying in Hadaf.
+16 | How many alumni does Hadaf have?
+17 | What makes Hadaf different from other colleges in KPK? | Hadaf Colleges distinguish themselves in KPK through strong institutional backing and modern, urban facilities, offering purpose-built, climate-controlled campuses with separate provisions for boys and girls.
+18 | What are the official website and social media links? | https://hadaf.edu.pk
+FB: Hadaf Colleges Peshawar.
+19 | What is the official helpline number? | (091) 5817700
+20 | What is the official WhatsApp number?
+21 | What is the official email address? | info@hadaf.edu.pk
+22 | What are the official office timings? | From 08:00 am to 04:00 pm
+2. Relationship With Punjab Group, Allied Schools, and EFA Schools
+1 | Is Hadaf Group of Colleges owned by Punjab Group of Colleges? | Yes
+2 | Is Hadaf a separate brand under Punjab Group? | Yes
+3 | Is Hadaf only a college-level brand for KPK? | Yes
+4 | Is Allied Schools a branch of Hadaf Group of Colleges? | No
+5 | Or is Allied Schools a separate project under Punjab Group? | Yes
+6 | Is EFA School also part of the same Punjab Group network? | Yes
+7 | Are Allied Schools students eligible for admission benefits at Hadaf? | Yes
+9 | Are Allied Schools students eligible for Punjab Group Scholarship at Hadaf? | Yes
+11 | Are there Allied Schools campuses in KPK? | Yes
+12 | How many Allied Schools campuses are currently operating in KPK?
+13 | What are the names and addresses of Allied Schools in KPK?
+14 | Are any Allied Schools directly managed by Hadaf administration? | No
+15 | Are Allied Schools students given priority admission in Hadaf? | Yes
+16 | Are Allied Schools students given fee concession in Hadaf? | Yes
+17 | Are Allied Schools students given admission fee discount in Hadaf? | No
+18 | What proof is required from Allied/EFA students to claim scholarship? | SLC
+19 | Is there a separate quota for Allied/EFA students? | No
+20 | Who should be contacted for Allied/EFA scholarship verification?
+3. Campuses and Branches in KPK
+1 | How many Hadaf campuses are currently operating in KPK?
+2 | What are the names of all Hadaf campuses? | Hadaf Colleges.
+3 | What is the complete address of each campus?
+4 | Which campuses are in Peshawar? | Hadaf Colleges (Boys & Girls), Achini Chowk, Hadaf College, Nasir Bagh Campus, Hadaf College (Boys & Girls), Dalazak Campus.
+5 | Which campuses are outside Peshawar?
+6 | Which campuses are for boys? | Main Branch Achini Chowk and Dalazak Road Campus.
+7 | Which campuses are for girls? | Main Branch Achini Chowk, Nasir Bagh Campus and Dalazak Road Campus.
+8 | Are any campuses co-education? | Only BS Section has Co-Education System
+9 | Which campuses offer intermediate programs? | All Campuses
+10 | Which campuses offer BS programs? | Main Branch Achini Chowk
+11 | Which campuses offer Allied Health Sciences programs? | Main Branch, Ring Road, Achini Chowk
+12 | Which campus is the main campus? | Ring Road Branch, Peshawar.
+13 | Which campus is best for Pre-Medical? | All Campuses
+14 | Which campus is best for Pre-Engineering? | All Campuses
+15 | Which campus is best for ICS/Computer Science? | All Campuses
+16 | Which campus is best for BS programs? | Main Branch, Ring Road, Achini Chowk
+17 | Which campus has hostel facility? | All Campuses
+18 | Which campus has transport facility? | All Campuses
+19 | Which campus has science labs? | All Campuses
+20 | Which campus has computer labs? | All Campuses
+21 | What is the contact number of each campus?
+22 | What is the WhatsApp number of each campus?
+23 | What is the email of each campus?
+24 | What are the office timings of each campus?
+25 | What is the Google Maps link of each campus?
+26 | Who is the principal of each campus?
+27 | Who is the admission officer of each campus?
+28 | Who is the student support officer of each campus?
+29 | Which campuses are currently accepting admissions? | All Campuses
+30 | Are any new Hadaf campuses planned in KPK? | Yes
+4. Programs Offered
+1 | What programs are offered at Hadaf Group of Colleges KPK? | F.Sc. (Pre-Medical), F.Sc. (Pre-Engineering), FCS, FA, ICS, BS (Eng), BS(CS), BS (AI), BS Cyber Security, BS Allied Health Sciences
+2 | Which intermediate programs are offered? | F.Sc. (Pre-Medical), F.Sc. (Pre-Engineering), FCS, FA, ICS
+3 | Which bachelor/BS programs are offered? | BS English, BS Computer Sciences, BS Aritificial Intelligence, BS Cyber Security, BS Anesthesia Technology, BS Cardiology Technology, BS Health Technology, BS Radiology Technology & BS Surgical Technology.
+4 | Which allied health sciences programs are offered? | BS Anesthesia Technology, BS Cardiology Technology, BS Health Technology, BS Radiology Technology & BS Surgical Technology.
+5 | Which programs are available for boys? | All Campuses
+6 | Which programs are available for girls? | All Campuses
+7 | Which programs are available campus-wise? | F.Sc. (Pre-Medical), F.Sc. (Pre-Engineering), FCS, FA, ICS
+8 | Are morning classes available? | Yes
+9 | Are evening classes available? | Yes (Intermediate Level)
+10 | Are weekend classes available? | No
+11 | Are online classes available? | No
+12 | Are practical classes available? | Yes
+13 | Are extra coaching classes available? | Yes
+14 | Are test preparation classes available? | Yes
+15 | Which programs are affiliated with BISE? | F.Sc. (Pre-Medical), F.Sc. (Pre-Engineering), FCS, FA, ICS
+16 | Which programs are affiliated with a university? | BS English, BS Computer Sciences, BS Aritificial Intelligence, BS Cyber Security
+17 | Which programs are affiliated with KMU? | BS Anesthesia Technology, BS Cardiology Technology, BS Health Technology, BS Radiology Technology & BS Surgical Technology.
+18 | Which programs are recognized by relevant authorities? | BS Anesthesia Technology, BS Cardiology Technology, BS Health Technology, BS Radiology Technology & BS Surgical Technology.
+19 | What is the duration of each program? | Intermediate 2 Years & Degree Programs 4 Years (8 Semesters)
+20 | What is the examination system of each program? | Intermediate Annual System and BS Semester System
+21 | What is the semester/year system of each program? | All BS Programs are Semester System
+22 | What are the career options after each program?
+5. Intermediate Programs
+1 | Is F.Sc Pre-Medical offered? | Yes
+2 | Which campuses offer F.Sc Pre-Medical? | Yes
+3 | What subjects are included in F.Sc Pre-Medical?
+4 | What is the eligibility for F.Sc Pre-Medical? | SSC with 45% Marks
+5 | What career options are available after Pre-Medical?
+6 | Is F.Sc Pre-Engineering offered? | Yes
+7 | Which campuses offer F.Sc Pre-Engineering? | All Campuses
+8 | What subjects are included in Pre-Engineering?
+9 | What is the eligibility for Pre-Engineering? | SSC with 45% Marks
+10 | What career options are available after Pre-Engineering?
+11 | Is ICS/FCS offered? | Yes
+12 | Which campuses offer ICS/FCS? | All Campuses
+13 | What subject combinations are available in ICS/FCS?
+14 | Is Mathematics compulsory for ICS/FCS? | Yes
+15 | Can ICS/FCS students apply for BSCS? | Yes
+16 | Is FA offered? | Yes
+17 | Which campuses offer FA? | All Campuses
+18 | What subject combinations are available in FA?
+19 | What is the eligibility for FA? | SSC with 45% Marks
+20 | What career options are available after FA?
+21 | Is FA General Science offered?
+22 | Which campuses offer General Science?
+23 | What subjects are available in General Science?
+24 | What is the eligibility for General Science?
+25 | What is the difference between ICS and General Science?
+26 | Is I.Com offered?
+27 | Which campuses offer I.Com?
+28 | What subjects are included in I.Com?
+29 | What is the eligibility for I.Com?
+30 | What career options are available after I.Com?
+31 | 6. BS Programs
+32 | Which BS programs are offered at Hadaf? | BS English, BS Computer Sciences, BS Aritificial Intelligence, BS Cyber Security, BS Anesthesia Technology, BS Cardiology Technology, BS Health Technology, BS Radiology Technology & BS Surgical Technology.
+33 | Is BS Computer Science offered? | Yes
+34 | Which campus offers BS Computer Science? | Main Branch, Ring Road, Achini Chowk
+35 | What is the duration of BSCS? | 4 Years, 8 Semesters
+36 | What is the eligibility for BSCS? | F.A./F.Sc. With 50% Marks
+37 | Is Mathematics required for BSCS? | Yes
+38 | Which university is BSCS affiliated with? | University of Peshawar.
+39 | Is BSCS recognized by HEC? | Yes
+40 | What subjects are taught in BSCS?
+41 | What career options are available after BSCS?
+42 | Is BS English offered? | Yes
+43 | Which campus offers BS English? | Main Branch, Ring Road, Achini Chowk
+44 | What is the duration of BS English? | 4 Years, 8 Semesters
+45 | What is the eligibility for BS English? | F.A./F.Sc. With 50% Marks
+46 | Which university is BS English affiliated with? | University of Peshawar.
+47 | What subjects are taught in BS English?
+48 | What career options are available after BS English?
+49 | Are any other BS programs offered? | BS Artificial Intelligence, BS Cyber Security
+50 | Are BS admissions semester-wise or annual? | Yes, Annual Wise
+51 | Is there any entry test for BS programs? | Yes for  BS Allied Health Sciences only
+52 | Is interview required for BS programs? | No
+53 | What documents are required for BS admission? | Certificate, DMC, Domicile, CNIC, Pictures
+54 | What is the fee structure for each BS program?
+55 | Are scholarships available for BS students? | Yes
+56 | Are BS classes morning or evening? | Morning Session
+7. Allied Health Sciences Programs
+1 | Does Hadaf offer Allied Health Sciences programs? | Yes
+2 | Which campus offers Allied Health Sciences? | Main Branch, Ring Road, Achini Chowk
+3 | Are Allied Health Sciences programs affiliated with KMU? | Yes
+4 | Which allied health programs are offered? | BS Anesthesia Technology, BS Cardiology Technology, BS Health Technology, BS Radiology Technology & BS Surgical Technology.
+5 | Is BS Anesthesia offered? | Yes
+6 | Is BS Radiology offered? | Yes
+7 | Is BS Surgical offered? | Yes
+8 | Is BS Cardiology offered? | Yes
+9 | Is BS Health offered? | Yes
+10 | Are any other allied health programs offered? | No
+11 | What is the duration of each allied health program? | 4 Years, 8 Semesters
+12 | What is the eligibility for each allied health program? | F.Sc. (Pre-Medical) with 50% Marks and KMU CAT Test
+13 | Is Biology required for allied health programs? | Yes
+14 | Is MDCAT required for allied health programs? | No, KMU CAT Test is required
+15 | Is an interview required? | No
+16 | Is an entry test required? | Yes
+17 | How many seats are available in each program? | 30 Seats per program
+18 | What is the fee structure of each allied health program?
+19 | Are scholarships available for Allied Health Sciences? | Yes
+20 | What documents are required for Allied Health Sciences admission? | Matric/F.Sc. Certificate and DMCs, Domicile, CNIC, Pictures, KMU CAT Test Result
+21 | Are clinical/practical training facilities available? | Yes
+22 | Which hospitals or labs are linked for practical training? | Institute of Kidney Diseases, HealthNet Hospital and Afridi Medical Complex
+23 | What is the career scope of each allied health program?
+24 | Who is the contact person for Allied Health Sciences admission? | Mr. Shabir Ahmed
+25 | 8. Admission Process
+26 | Are admissions currently open? | Yes
+27 | What is the admission opening date? | Open
+28 | What is the last date to apply? | Depend on Seat availability
+29 | What is the admission process step by step?
+30 | Is online admission available? | No
+31 | Is physical admission available? | Yes
+32 | Where can students get the admission form? | Main Branch, Ring Road, Achini Chowk
+33 | Is the admission form available on the website? | No
+34 | Is the prospectus available online? | No
+35 | What is the prospectus fee? | 500 and 1000
+36 | Is there an admission test? | No
+37 | Is there an interview? | No
+38 | Is interview compulsory for all programs? | No
+39 | How can students collect the interview slip?
+40 | When will the interview be conducted?
+41 | How will students know they are selected?
+42 | Is there a merit list? | No
+43 | Where is the merit list displayed?
+44 | How can students confirm admission? | Admissions are confirm on spot
+45 | How can students reserve a seat? | By paying Admission and Semester Fee
+46 | When is fee submission required? | At the time of Admission
+47 | How is roll number issued?
+48 | Can students apply before result declaration? | Yes, Admissions are granted conditionally
+49 | Can result-awaiting students apply? | Yes
+50 | Can students apply after the deadline? | Yes
+51 | Can students apply to more than one program? | Yes
+52 | Can students change program after admission? | Yes, before registration with concerned University.
+53 | Can students change campus after admission? | No
+54 | Can students transfer from another college? | Yes
+55 | Who should be contacted for admission help? | Mr. Shabir Ahmed
+9. Eligibility Criteria
+1 | What is the eligibility for each intermediate program?
+2 | What is the minimum marks requirement for each program?
+3 | Are supplementary students eligible? | Yes
+4 | Are result-awaiting students eligible? | Yes
+5 | Are O-Level students eligible? | Yes
+6 | Are A-Level students eligible? | Yes
+7 | Is equivalence certificate required? | Yes
+8 | Can students from other boards apply? | Yes
+9 | Can students from other provinces apply? | Yes
+10 | Is domicile required? | Yes
+11 | Is there an age limit? | Yes
+12 | Are gap-year students eligible? | Yes
+13 | Can arts students apply for computer science?
+14 | Can commerce students apply for BSCS? | No
+15 | Can ICS students apply for BSCS? | Yes
+16 | Can Pre-Medical students apply for BSCS? | Yes
+17 | Is Mathematics compulsory for BSCS? | Yes
+18 | Is Biology compulsory for Allied Health Sciences? | Yes
+19 | Is medical fitness required for Allied Health Sciences? | No
+20 | Is Hafiz-e-Quran certificate considered for admission or marks? | Yes
+10. Required Documents
+1 | What documents are required for intermediate admission? | Matric Certificate, DMC, Domicile, CNIC, Pictures
+2 | What documents are required for BS admission? | Matric/F.Sc. Certificate and DMCs, Domicile, CNIC, Pictures
+3 | What documents are required for Allied Health Sciences admission? | Matric/F.Sc. Certificate and DMCs, Domicile, CNIC, Pictures, Migration Certificate,  KMU CAT Test Result
+4 | Is student CNIC/Form-B required? | Yes
+5 | Is father/guardian CNIC required? | Yes
+6 | Is matric result card required? | Yes
+7 | Is intermediate result card required? | Yes
+8 | Is character certificate required? | Yes
+9 | Is domicile required? | Yes
+10 | Is migration certificate required? | Yes
+11 | Is equivalence certificate required? | Yes
+12 | How many photographs are required? | 4
+13 | Are original documents required? | No
+14 | Are attested photocopies required? | Yes
+15 | Who should attest documents? | All Students
+16 | Can admission be processed with missing documents? | No
+17 | What documents are required for scholarship?
+18 | What documents are required for hostel? | No document needed
+19 | What documents are required for transport? | No document needed
+20 | What documents are required for Allied/EFA scholarship? | No document needed
+11. Fee Structure
+1 | What is the admission fee for each program?
+2 | What is the monthly fee for each intermediate program?
+3 | What is the semester fee for each BS program?
+4 | What is the fee for Allied Health Sciences programs?
+5 | What is the registration fee? | 5,500/- subject to revision by KMU
+6 | What is the annual fee? | Nil
+7 | What is the examination fee? | 1300/- per paper
+8 | What is the lab fee? | Nil
+9 | What is the library fee? | Nil
+10 | What is the security fee? | Nil
+11 | What is the student card fee? | Nil
+12 | What is the hostel fee? | 20,000/- per month
+13 | What is the transport fee? | Depend on location
+14 | What is the fee payment schedule? | Two Installments
+15 | What is the due date for fee submission?
+16 | What is the late fee fine?
+17 | Are installments allowed? | Yes
+18 | What payment methods are accepted? | Bank Transaction
+19 | Can students pay fee through bank? | Yes
+20 | Can students pay fee online? | No
+21 | Is fee refundable? | No
+22 | What is the refund policy? | No refund policy
+23 | What happens if fee is not paid on time? | A fine will be imposed
+24 | Does scholarship apply to admission fee or tuition fee? | Scholarship apply only in Tuition Fee
+25 | Who handles fee-related queries? | Administration Section
+26 | 12. Scholarships and Fee Concessions
+27 | What scholarships are offered at Hadaf KPK? | Tuition Fee
+28 | What is the merit scholarship policy?
+29 | What marks are required for merit scholarship? | 75% and above marks
+30 | What percentage of scholarship is given for each marks range? | 75% and above marks
+31 | Is there a need-based scholarship? | Yes
+32 | Is there an orphan scholarship? | Yes
+33 | Is there kinship/sibling concession? | Yes
+34 | Is there a teacher's children scholarship? | Yes
+35 | Is there a sports scholarship? | Yes
+36 | Is there a co-curricular scholarship? | No
+37 | Is there a scholarship for differently abled students? | Yes
+38 | Is there a scholarship for old Hadaf students? | Yes
+39 | Is there a Punjab Group scholarship? | No
+40 | Are Allied Schools students eligible for scholarship? | Yes
+41 | Are EFA Schools students eligible for scholarship? | Yes
+42 | What proof is required for Allied/EFA students? | SLC
+43 | Can scholarship be continued in second year? | Yes
+44 | What attendance is required to continue scholarship? | 0.75
+45 | What academic performance is required to continue scholarship?
+46 | Can scholarship be cancelled? | Yes
+47 | Can one student receive more than one scholarship? | No
+48 | What is the scholarship application process? | Scholarship granted at the time of admission
+49 | What documents are required for each scholarship? | No document needed
+50 | Who approves scholarships? | Director/Principal
+51 | Who should students contact for scholarship details? | Administration Section
+13. Faculty and Professors
+1 | Who is the principal of each campus?
+2 | Who is the vice principal of each campus?
+3 | Who are the heads of departments?
+4 | Who are the admission counselors? | Administration Section
+5 | Who are the faculty members for Pre-Medical?
+6 | Who are the faculty members for Pre-Engineering?
+7 | Who are the faculty members for ICS/Computer Science?
+8 | Who are the faculty members for Commerce?
+9 | Who are the faculty members for Arts/Humanities?
+10 | Who are the faculty members for Allied Health Sciences?
+11 | What is the qualification of each teacher? | BS/MS
+12 | What is the specialization of each teacher?
+13 | How many years of experience does each teacher have?
+14 | Which subject does each teacher teach?
+15 | Which campus is each teacher assigned to?
+16 | Are teacher profiles public? | No
+17 | Are teacher photos allowed in chatbot? | Yes
+18 | Are teacher emails public? | No
+19 | Can students contact teachers directly? | NO
+20 | What are faculty office hours? | 08:00 am to 02:00 pm
+21 | Who should parents contact for academic progress? | Administration Section
+22 | Who handles student counseling? | Administration Section
+23 | Who handles discipline issues? | Discipline Incharge
+24 | Who handles exam matters? | Contoller of Examinations
+25 | Who handles timetable issues? | Concerned Coordinator
+14. Academic Calendar and Class Timings
+1 | When do classes start? | at 08:00 am in the Morning
+2 | What are the class timings? | From 08:am to 01:30 pm
+3 | What are morning shift timings? | From 08:am to 01:30 pm
+4 | What are evening shift timings? | From 01:30 to 05:00 pm
+5 | Are timings different for boys and girls campuses? | No
+6 | Are timings different campus-wise? | No
+7 | When is orientation held? | At the start of each session
+8 | When are monthly tests held? | Each Month
+9 | When are send-up exams held?
+10 | When are practical exams held?
+11 | When are board/university exams expected? | At the end of each session/each semester
+12 | When are parent-teacher meetings held? | In the middle of each session
+13 | What are official holidays? | Gazetted Holidays
+14 | How are timetable changes announced? | In the WhatsApp groups
+15 | Where can students get timetable? | In the WhatsApp groups
+16 | Who should students contact for timetable questions? | Concerned Class Teacher
+15. Attendance and Examination
+1 | What is the minimum attendance requirement? | 0.75
+2 | Is attendance compulsory? | Yes
+3 | How is attendance recorded? | Online and Offline
+4 | Can parents check attendance? | Yes
+5 | Are parents informed about absence? | Yes
+6 | What happens if attendance is short? | Students does not allow for final exam
+7 | Can students sit in exams with short attendance? | No
+8 | How often are tests conducted? | Monthly basis
+9 | Are monthly tests compulsory? | Yes
+10 | Are send-up exams compulsory? | Ys
+11 | What is the promotion policy?
+12 | What is the passing policy?
+13 | How are practical marks handled?
+14 | How can students get date sheet? | Notice Boards and WhatsApp Groups
+15 | How can students get roll number slip? | From Administraion Section
+16 | How can students check result? | Online
+17 | Who handles board/university registration? | Board/University Affairs Incharge
+18 | What is the policy for absent students in exams?
+19 | Is rechecking/re-evaluation available? | Yes
+20 | Who handles examination complaints? | Controller of Examinations
+16. Student Portal, App, and Online Learning
+1 | Does Hadaf have a student portal? | Yes
+2 | Does Hadaf have a mobile app? | Yes
+3 | What is the app name?
+4 | Where can students download the app? | From Play Store
+5 | How can students log in? | Need Student Registration in the App
+6 | Who provides login credentials? | IT Manager
+7 | How can students reset password?
+8 | What features are available in the portal/app?
+9 | Are online lectures available? | No
+10 | Are MCQs available? | Yes
+11 | Are short questions available? | Yes
+12 | Are past papers available? | Yes
+13 | Are notes available? | Yes
+14 | Are attendance records available? | Yes
+15 | Are test results available? | Yes
+16 | Are fee records available? | Yes
+17 | Are announcements available? | Yes
+18 | Can parents access the portal? | Yes
+19 | Who should students contact for portal/app issues? | IT Manager
+20 | Is technical support available through WhatsApp or email? | Yes
+17. Hostel Facility
+1 | Is hostel facility available? | Yes
+2 | Is hostel available for boys? | Yes
+3 | Is hostel available for girls? | Yes
+4 | Which campuses provide hostel facility? | All Campuses
+5 | What is the hostel admission process?
+6 | What documents are required for hostel admission? | No Documents needed
+7 | What is the hostel fee? | 20,000/- per month
+8 | Is mess included in hostel fee? | Yes
+9 | Are rooms shared or separate? | Shared
+10 | How many students stay in one room? | It depends on space
+11 | Is security available? | Yes
+12 | Is Wi-Fi available? | Yes
+13 | Is laundry available? | Yes
+14 | What are hostel rules?
+15 | What are hostel timings?
+16 | Can parents visit hostel? | Yes
+17 | What is the hostel refund policy?
+18 | Who is the hostel warden?
+19 | What is the hostel contact number?
+20 | Is hostel available for Allied Health students? | Yes
+18. Transport Facility
+1 | Is transport facility available? | Yes
+2 | Which campuses provide transport? | All Campuses
+3 | What routes are available?
+4 | What areas are covered? | From Hayatabad to Haji Camp Adda and its surroundings
+5 | What is the transport fee?
+6 | Is transport fee monthly? | No
+7 | Is pickup and drop available? | Yes
+8 | Are separate vehicles available for boys and girls? | Transport facility is Girls only
+9 | How can students register for transport? | In each campus
+10 | What documents are required for transport? | No Documents needed
+11 | Can students change route? | No
+12 | What happens if bus is missed? | Own arrangements
+13 | Who handles transport complaints? | Transport Incharge
+14 | Is transport available for hostel students? | Yes
+15 | Is transport available during exams? | Yes
+16 | Are transport timings fixed? | Yes
+17 | What is the transport refund policy?
+19. Campus Facilities
+1 | Does Hadaf have science labs? | Yes
+2 | Does Hadaf have computer labs? | Yes
+3 | Does Hadaf have libraries? | Yes
+4 | Does Hadaf have air-conditioned classrooms? | Yes
+5 | Does Hadaf have generator/backup power? | Yes
+6 | Does Hadaf have cafeteria/canteen? | Yes
+7 | Does Hadaf have playground/sports area? | Yes
+8 | Does Hadaf have auditorium/seminar hall? | Yes
+9 | Does Hadaf provide student counseling? | Yes
+10 | Does Hadaf provide career counseling? | Yes
+11 | Does Hadaf provide extra coaching? | Yes
+12 | Does Hadaf provide test preparation? | Yes
+13 | Are practical labs available for science students? | Yes
+14 | Are computer systems available for CS students? | Yes
+15 | Is internet/Wi-Fi available? | Yes
+16 | Are medical/first-aid facilities available? | Yes
+17 | Are separate facilities available for girls? | Yes
+18 | Are parent-teacher meetings conducted? | Yes
+19 | Are notices shared through SMS/WhatsApp/app? | Yes
+20 | Are campus tours available for parents and students? | Yes
+20. Clubs, Societies, and Activities
+1 | What clubs are available at Hadaf?
+2 | Is there a debating club? | Yes
+3 | Is there a literary society? | Yes
+4 | Is there a science club? | Yes
+5 | Is there a sports society? | Yes
+6 | Is there an IT/computer club? | Yes
+7 | Is there a blood donor club?
+8 | Is there a volunteer club?
+9 | Is there a dramatic club?
+10 | Are seminars conducted? | Yes
+11 | Are workshops conducted? | Yes
+12 | Are study tours arranged? | Yes
+13 | Are recreational trips arranged? | Yes
+14 | Are sports events arranged? | Yes
+15 | s annual sports gala arranged? | Yes
+16 | Are welcome parties arranged? | Yes
+17 | Are farewell parties arranged? | Yes
+18 | Are science fairs arranged? | Yes
+19 | Are book fairs arranged? | Yes
+20 | How can students join clubs?
+21 | Are certificates given for participation? | Yes
+22 | Are competitions held between campuses? | Yes
+21. Rules and Regulations
+1 | Is uniform compulsory? | Yes
+2 | What is the official uniform for boys? | Pant, Shirt, Tie and Black Shoes
+3 | What is the official uniform for girls? | White Shalwar, Green Shirt and Dopatta
+4 | Is ID card compulsory? | Yes
+5 | Are mobile phones allowed? | No
+6 | Are cameras allowed? | No
+7 | Is smoking prohibited? | Yes
+8 | What is the attendance policy?
+9 | What is the late arrival policy?
+10 | What happens if a student leaves class without permission? | Imposition of Fines
+11 | What happens if a student remains absent without permission? | Rustication from Colleger
+12 | What is the discipline policy?
+13 | What activities are prohibited?
+14 | Are political activities allowed? | No
+15 | Can students distribute posters or notices? | No
+16 | How can students submit complaints? | Administration Section
+17 | Who handles complaints? | Administration Section
+18 | What is the policy for damaging college property?
+19 | What is the policy for misconduct? | Rustication from Colleger
+20 | Can college rules change during the session? | No
+21 | What happens if wrong information is given in admission form? | Admission will not be granted
+22 | Can scholarship be withdrawn for misconduct? | Yes
+23 | Can scholarship be withdrawn for low attendance? | Yes
+24 | Can a student be removed from college roll? | Yes
+25 | Where can students get the complete rules document? | Administration Section
+22. Parent Support
+1 | How can parents contact the college? | Visit Campus
+2 | How can parents check student attendance? | Online App
+3 | How can parents check academic performance? | Online App
+4 | How are parents informed about tests? | WhatsApp Messages
+5 | How are parents informed about absences? | Yes
+6 | Are parent-teacher meetings held? | Yes
+7 | How often are parent-teacher meetings held?
+8 | Can parents meet teachers directly? | Yes
+9 | Can parents meet the principal? | Yes
+10 | Who should parents contact for complaints? | Administration Section
+11 | How can parents receive fee updates? | Administration Section
+12 | How can parents receive result updates? | Administration Section
+13 | Is SMS/WhatsApp communication available? | Yes
+14 | Is there a parent portal? | Yes
+15 | Can parents visit campus before admission? | Yes
+23. Complaints and Support
+1 | How can students submit a complaint? | Written complaint be submitted to Hadaf
+2 | How can parents submit a complaint? | Written complaint be submitted to Hadaf
+3 | Who handles academic complaints? | Administration Section
+4 | Who handles fee complaints? | Accounts Section
+5 | Who handles admission complaints? | Admission Incharge
+6 | Who handles transport complaints? | Transport Incharge
+7 | Who handles hostel complaints? | Hostel Warden
+8 | Who handles portal/app complaints? | IT Manager
+9 | Who handles discipline complaints? | Discipline Incharge
+10 | Is there a complaint form?
+11 | Is there a complaint email?
+12 | Is there a complaint phone number?
+13 | How long does complaint resolution take?
+14 | Can complaints be submitted anonymously? | No
+15 | How can a complaint be escalated?
+16 | Who is the final authority for complaints? | Director/Principal
+17 | Can students give feedback about teachers? | Yes
+18 | Can parents give feedback about campus services? | Yes
+24. Career Guidance and Future Scope
+1 | What can students do after F.Sc Pre-Medical? | Further Studies in relevant field
+2 | What can students do after F.Sc Pre-Engineering? | Further Studies in relevant field
+3 | What can students do after ICS/FCS? | Further Studies in relevant field
+4 | What can students do after I.Com? | Further Studies in relevant field
+5 | What can students do after FA? | Further Studies in relevant field
+6 | What can students do after General Science? | Further Studies in relevant field
+7 | What can students do after BS Computer Science? | Further Studies in relevant field
+8 | What can students do after BS English? | Further Studies in relevant field
+9 | What can students do after Allied Health Sciences? | Further Studies in relevant field
+10 | Does Hadaf provide career counseling? | Yes
+11 | Does Hadaf guide students for university admissions? | Yes
+12 | Does Hadaf guide students for MDCAT? | Yes
+13 | Does Hadaf guide students for ECAT? | Yes
+14 | Does Hadaf guide students for scholarships? | Yes
+15 | Does Hadaf guide students for job opportunities? | Yes
+16 | Does Hadaf arrange career seminars? | Yes
+17 | Does Hadaf provide internship support? | No
+18 | Does Hadaf provide alumni guidance?
+25. Admission Lead Collection Questions
+1 | What is your full name?
+2 | What is your father/guardian name?
+3 | What is your phone number?
+4 | What is your WhatsApp number?
+5 | What is your email address?
+6 | Which city are you from?
+7 | Which campus are you interested in?
+8 | Which program are you interested in?
+9 | What was your last completed class?
+10 | What are your matric marks?
+11 | What are your intermediate marks, if applying for BS?
+12 | Are you waiting for result?
+13 | Are you interested in scholarship?
+14 | Are you from Allied Schools or EFA Schools?
+15 | Are you interested in hostel facility?
+16 | Are you interested in transport facility?
+17 | Do you want a campus visit?
+18 | Do you want fee details?
+19 | Do you want scholarship details?
+20 | When would you like the admission team to contact you?
+21 | Do you give permission for the admission team to contact you?
+26. Files We Need for RAG
+1 | College profile document
+2 | Hadaf history document
+3 | Punjab Group relationship document
+4 | Allied Schools/EFA relationship document
+5 | Campus list
+6 | Program catalog
+7 | Campus-wise program availability sheet
+8 | Admission policy
+9 | Admission dates sheet
+10 | Admission process document
+11 | Eligibility criteria sheet
+12 | Required documents sheet
+13 | Fee structure sheet
+14 | Scholarship policy
+15 | Allied/EFA scholarship policy
+16 | Faculty directory
+17 | Department directory
+18 | Principal/admission officer contact sheet
+19 | Academic calendar
+20 | Class timetable
+21 | Exam policy
+22 | Attendance policy
+23 | Student rules and regulations
+24 | Uniform policy
+25 | Hostel policy
+26 | Hostel fee sheet
+27 | Transport route sheet
+28 | Transport fee sheet
+29 | Student portal guide
+30 | Hadaf app guide
+31 | Facilities list
+32 | Clubs and societies list
+33 | Complaint policy
+34 | Escalation contact sheet
+35 | Refund policy
+36 | Privacy policy for chatbot lead collection
+37 | Top 100 student FAQs
+38 | Top 100 parent FAQs
+39 | Top 50 admission FAQs
+40 | Top 50 fee and scholarship FAQs

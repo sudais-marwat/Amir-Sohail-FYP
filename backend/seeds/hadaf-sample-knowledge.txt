@@ -1,0 +1,16 @@
+Hadaf College admission support knowledge base
+
+Programs:
+Hadaf College offers intermediate programs including F.Sc Pre-Medical, F.Sc Pre-Engineering, ICS, FA, General Science, and I.Com. Selected BS and Allied Health Sciences programs may be available campus-wise.
+
+Required admission documents:
+Students commonly need CNIC or Form-B, father or guardian CNIC, matric result card, intermediate result card where applicable, recent photographs, character certificate, domicile where applicable, migration certificate where applicable, equivalence certificate for O-Level or A-Level students, and scholarship proof if applying for concession.
+
+Admission process:
+Students can ask for the admission form, select a program and campus, submit required documents, complete any required interview or test, wait for selection or merit confirmation, and submit the fee to confirm admission.
+
+Scholarships:
+Scholarships and fee concessions may include merit-based scholarship, need-based concession, orphan scholarship, sibling or kinship concession, teacher children concession, sports or co-curricular concession, and Allied Schools or EFA related scholarship where policy allows.
+
+Student support:
+The chatbot can guide students and parents about programs, admission process, eligibility, documents, fee and scholarship questions, hostel, transport, academic calendar, attendance, exams, facilities, complaints, and parent support.

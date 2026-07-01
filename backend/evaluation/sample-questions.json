@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What documents are required for admission?",
+    "expectedCategory": "admissions",
+    "keywords": ["CNIC", "Form-B", "result", "photographs"]
+  },
+  {
+    "question": "Which programs are offered at Hadaf College?",
+    "expectedCategory": "programs",
+    "keywords": ["F.Sc", "ICS", "FA", "I.Com"]
+  },
+  {
+    "question": "Can students ask about scholarships?",
+    "expectedCategory": "scholarships",
+    "keywords": ["scholarship", "merit", "need"]
+  },
+  {
+    "question": "Tell me the price of a laptop in Dubai",
+    "expectedCategory": "general",
+    "keywords": ["could not find", "Hadaf", "contact"]
+  }
+]

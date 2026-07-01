@@ -1,0 +1,9 @@
+node_modules
+frontend/dist
+uploads
+.git
+.env
+backend/.env
+backend/evaluation/latest-report.md
+__pycache__
+.pytest_cache
