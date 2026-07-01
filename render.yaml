@@ -2,6 +2,7 @@ services:
   - type: web
     name: hadaf-rag-chatbot-api
     runtime: node
+    plan: free
     rootDir: .
     buildCommand: npm install --no-audit --no-fund
     startCommand: npm run start --workspace backend
@@ -32,6 +33,7 @@ services:
   - type: web
     name: hadaf-rag-chatbot-faiss
     runtime: docker
+    plan: free
     rootDir: faiss-service
     envVars:
       - key: PORT
