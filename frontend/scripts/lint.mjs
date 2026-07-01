@@ -6,10 +6,9 @@ import { fileURLToPath } from "node:url";
 const require = createRequire(import.meta.url);
 const here = dirname(fileURLToPath(import.meta.url));
 const searchPaths = [resolve(here, ".."), resolve(here, "../..")];
-const outDir = process.env.VITE_OUT_DIR || "dist";
 
-const vitePackage = require.resolve("vite/package.json", { paths: searchPaths });
-const viteBin = join(dirname(vitePackage), "bin", "vite.js");
-const result = spawnSync(process.execPath, [viteBin, "build", "--outDir", outDir], { stdio: "inherit" });
+const eslintPackage = require.resolve("eslint/package.json", { paths: searchPaths });
+const eslintBin = join(dirname(eslintPackage), "bin", "eslint.js");
+const result = spawnSync(process.execPath, [eslintBin, "."], { stdio: "inherit" });
 
 process.exit(result.status ?? 1);

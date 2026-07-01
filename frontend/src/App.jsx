@@ -1,5 +1,5 @@
 import { BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Plus, Save, Send, Trash2, Users, X } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { api, apiUrl, authHeaders } from "./api.js";
 
 const prompts = [
@@ -22,10 +22,10 @@ export function App() {
             <span>Admission Support</span>
           </div>
         </div>
-        <button className={view === "chat" ? "active" : ""} onClick={() => setView("chat")}>
+        <button type="button" className={view === "chat" ? "active" : ""} onClick={() => setView("chat")}>
           <MessageCircle aria-hidden="true" /> Chatbot
         </button>
-        <button className={view === "admin" ? "active" : ""} onClick={() => setView("admin")}>
+        <button type="button" className={view === "admin" ? "active" : ""} onClick={() => setView("admin")}>
           <BarChart3 aria-hidden="true" /> Admin
         </button>
       </aside>
@@ -41,6 +41,11 @@ function Chatbot() {
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
   const [lead, setLead] = useState({ name: "", phone: "", email: "", programInterest: "", message: "" });
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
+  }, [messages, loading]);
 
   async function ask(text = question) {
     const clean = text.trim();
@@ -77,33 +82,50 @@ function Chatbot() {
         <section className="chat-panel" aria-label="Chat messages">
           <div className="prompt-row">
             {prompts.map((prompt) => (
-              <button key={prompt} onClick={() => ask(prompt)}>{prompt}</button>
+              <button type="button" key={prompt} onClick={() => ask(prompt)}>{prompt}</button>
             ))}
           </div>
-          <div className="messages">
+          <div className="messages" role="log" aria-live="polite" aria-label="Chat conversation">
             {messages.map((message, index) => (
               <div className={`message ${message.role}`} key={`${message.role}-${index}`}>
                 {message.role === "assistant" && <Bot aria-hidden="true" />}
                 <p>{message.text}</p>
               </div>
             ))}
-            {loading && <div className="message assistant"><Bot aria-hidden="true" /><p>Checking official college information...</p></div>}
+            {loading && <div className="message assistant"><Bot aria-hidden="true" /><p>Checking official college information…</p></div>}
+            <div ref={messagesEndRef} />
           </div>
           <form className="composer" onSubmit={(event) => { event.preventDefault(); ask(); }}>
-            <input value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Type your admission or support question" />
-            <button aria-label="Send question"><Send aria-hidden="true" /></button>
+            <label className="sr-only" htmlFor="chat-question">Admission or support question</label>
+            <input id="chat-question" name="question" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Type your admission or support question…" autoComplete="off" />
+            <button type="submit" aria-label="Send question" disabled={loading || !question.trim()}><Send aria-hidden="true" /></button>
           </form>
         </section>
 
         <aside className="lead-panel">
           <h2>Admission Follow-Up</h2>
           <form onSubmit={submitLead}>
-            <input required placeholder="Full name" value={lead.name} onChange={(e) => setLead({ ...lead, name: e.target.value })} />
-            <input required placeholder="Phone or WhatsApp" value={lead.phone} onChange={(e) => setLead({ ...lead, phone: e.target.value })} />
-            <input placeholder="Email" value={lead.email} onChange={(e) => setLead({ ...lead, email: e.target.value })} />
-            <input placeholder="Program interest" value={lead.programInterest} onChange={(e) => setLead({ ...lead, programInterest: e.target.value })} />
-            <textarea placeholder="Message" value={lead.message} onChange={(e) => setLead({ ...lead, message: e.target.value })} />
-            <button type="submit"><Users aria-hidden="true" /> Send details</button>
+            <label htmlFor="lead-name">
+              <span>Full Name</span>
+              <input id="lead-name" required name="name" placeholder="Full name…" autoComplete="name" value={lead.name} onChange={(e) => setLead({ ...lead, name: e.target.value })} />
+            </label>
+            <label htmlFor="lead-phone">
+              <span>Phone or WhatsApp</span>
+              <input id="lead-phone" required type="tel" name="phone" placeholder="Phone or WhatsApp…" autoComplete="tel" value={lead.phone} onChange={(e) => setLead({ ...lead, phone: e.target.value })} />
+            </label>
+            <label htmlFor="lead-email">
+              <span>Email</span>
+              <input id="lead-email" type="email" name="email" placeholder="Email…" autoComplete="email" spellCheck={false} value={lead.email} onChange={(e) => setLead({ ...lead, email: e.target.value })} />
+            </label>
+            <label htmlFor="lead-program">
+              <span>Program Interest</span>
+              <input id="lead-program" name="programInterest" placeholder="Program interest…" autoComplete="off" value={lead.programInterest} onChange={(e) => setLead({ ...lead, programInterest: e.target.value })} />
+            </label>
+            <label htmlFor="lead-message">
+              <span>Message</span>
+              <textarea id="lead-message" name="message" placeholder="Message…" autoComplete="off" value={lead.message} onChange={(e) => setLead({ ...lead, message: e.target.value })} />
+            </label>
+            <button type="submit"><Users aria-hidden="true" /> Send Details</button>
           </form>
         </aside>
       </div>
@@ -188,9 +210,15 @@ function AdminDashboard() {
         <form className="login" onSubmit={login}>
           <LogIn aria-hidden="true" />
           <h1>Admin Login</h1>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <button>Login</button>
+          <label htmlFor="admin-email">
+            <span>Email</span>
+            <input id="admin-email" type="email" name="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </label>
+          <label htmlFor="admin-password">
+            <span>Password</span>
+            <input id="admin-password" type="password" name="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+          <button type="submit">Login</button>
         </form>
       </section>
     );
@@ -248,10 +276,19 @@ function AdminDashboard() {
         <section className="panel">
           <h2>Add FAQ</h2>
           <form onSubmit={addFaq} className="stack">
-            <input placeholder="Question" value={faq.question} onChange={(e) => setFaq({ ...faq, question: e.target.value })} />
-            <textarea placeholder="Official answer" value={faq.answer} onChange={(e) => setFaq({ ...faq, answer: e.target.value })} />
-            <input placeholder="Category" value={faq.category} onChange={(e) => setFaq({ ...faq, category: e.target.value })} />
-            <button><Plus aria-hidden="true" /> Add FAQ</button>
+            <label htmlFor="faq-question">
+              <span>Question</span>
+              <input id="faq-question" placeholder="Question…" value={faq.question} onChange={(e) => setFaq({ ...faq, question: e.target.value })} />
+            </label>
+            <label htmlFor="faq-answer">
+              <span>Official Answer</span>
+              <textarea id="faq-answer" placeholder="Official answer…" value={faq.answer} onChange={(e) => setFaq({ ...faq, answer: e.target.value })} />
+            </label>
+            <label htmlFor="faq-category">
+              <span>Category</span>
+              <input id="faq-category" placeholder="Category…" value={faq.category} onChange={(e) => setFaq({ ...faq, category: e.target.value })} />
+            </label>
+            <button type="submit"><Plus aria-hidden="true" /> Add FAQ</button>
           </form>
         </section>
 
@@ -259,11 +296,20 @@ function AdminDashboard() {
           <h2>Recent FAQs</h2>
           {editingFaq && (
             <form onSubmit={saveFaq} className="stack editor">
-              <input value={editingFaq.question} onChange={(e) => setEditingFaq({ ...editingFaq, question: e.target.value })} />
-              <textarea value={editingFaq.answer} onChange={(e) => setEditingFaq({ ...editingFaq, answer: e.target.value })} />
-              <input value={editingFaq.category} onChange={(e) => setEditingFaq({ ...editingFaq, category: e.target.value })} />
+              <label htmlFor="edit-faq-question">
+                <span>Question</span>
+                <input id="edit-faq-question" value={editingFaq.question} onChange={(e) => setEditingFaq({ ...editingFaq, question: e.target.value })} />
+              </label>
+              <label htmlFor="edit-faq-answer">
+                <span>Official Answer</span>
+                <textarea id="edit-faq-answer" value={editingFaq.answer} onChange={(e) => setEditingFaq({ ...editingFaq, answer: e.target.value })} />
+              </label>
+              <label htmlFor="edit-faq-category">
+                <span>Category</span>
+                <input id="edit-faq-category" value={editingFaq.category} onChange={(e) => setEditingFaq({ ...editingFaq, category: e.target.value })} />
+              </label>
               <div className="button-row">
-                <button><Save aria-hidden="true" /> Save</button>
+                <button type="submit"><Save aria-hidden="true" /> Save</button>
                 <button type="button" className="secondary" onClick={() => setEditingFaq(null)}><X aria-hidden="true" /> Cancel</button>
               </div>
             </form>
@@ -287,10 +333,19 @@ function AdminDashboard() {
         <section className="panel">
           <h2>Documents</h2>
           <form onSubmit={uploadDocument} className="stack upload-form">
-            <input placeholder="Document title" value={doc.title} onChange={(e) => setDoc({ ...doc, title: e.target.value })} />
-            <input placeholder="Category" value={doc.category} onChange={(e) => setDoc({ ...doc, category: e.target.value })} />
-            <input type="file" accept=".txt,.md,.pdf,.docx" onChange={(e) => setDoc({ ...doc, file: e.target.files?.[0] || null })} />
-            <button><FileText aria-hidden="true" /> Upload document</button>
+            <label htmlFor="doc-title">
+              <span>Document Title</span>
+              <input id="doc-title" placeholder="Document title…" value={doc.title} onChange={(e) => setDoc({ ...doc, title: e.target.value })} />
+            </label>
+            <label htmlFor="doc-category">
+              <span>Category</span>
+              <input id="doc-category" placeholder="Category…" value={doc.category} onChange={(e) => setDoc({ ...doc, category: e.target.value })} />
+            </label>
+            <label htmlFor="doc-file">
+              <span>Document File</span>
+              <input id="doc-file" type="file" accept=".txt,.md,.pdf,.docx" onChange={(e) => setDoc({ ...doc, file: e.target.files?.[0] || null })} />
+            </label>
+            <button type="submit"><FileText aria-hidden="true" /> Upload Document</button>
           </form>
           <div className="list compact">
             {data.documents.map((item) => (
