@@ -265,7 +265,7 @@ function AdminDashboard() {
   }
 
   return (
-    <section className="workspace">
+    <section className="workspace admin-workspace">
       <header className="topbar">
         <div>
           <p className="eyebrow">Knowledge base control</p>
