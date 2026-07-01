@@ -1,4 +1,4 @@
-import { BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Plus, Save, Send, Trash2, Users, X } from "lucide-react";
+﻿import { BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Plus, Save, Send, Trash2, Users, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { api, apiUrl, authHeaders } from "./api.js";
 
@@ -8,6 +8,41 @@ const prompts = [
   "Which programs are offered?",
   "Are scholarships available?"
 ];
+
+function cleanAssistantText(text) {
+  return String(text || "")
+    .replace(/\*\*/g, "")
+    .replace(/^\s*\*\s+/gm, "- ")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function MessageText({ text }) {
+  const blocks = cleanAssistantText(text).split(/\n{2,}/).filter(Boolean);
+
+  return (
+    <div className="message-content">
+      {blocks.map((block, blockIndex) => {
+        const lines = block.split("\n").map((line) => line.trim()).filter(Boolean);
+        const isBulletBlock = lines.length > 1 && lines.every((line) => /^-\s+/.test(line));
+
+        if (isBulletBlock) {
+          return (
+            <ul key={`block-${blockIndex}`}>
+              {lines.map((line, lineIndex) => (
+                <li key={`line-${lineIndex}`}>{line.replace(/^-\s+/, "")}</li>
+              ))}
+            </ul>
+          );
+        }
+
+        return lines.map((line, lineIndex) => (
+          <p key={`line-${blockIndex}-${lineIndex}`}>{line}</p>
+        ));
+      })}
+    </div>
+  );
+}
 
 export function App() {
   const [view, setView] = useState("chat");
@@ -70,7 +105,7 @@ function Chatbot() {
   }
 
   return (
-    <section className="workspace">
+    <section className="workspace chat-workspace">
       <header className="topbar">
         <div>
           <p className="eyebrow">Student and parent support</p>
@@ -89,15 +124,15 @@ function Chatbot() {
             {messages.map((message, index) => (
               <div className={`message ${message.role}`} key={`${message.role}-${index}`}>
                 {message.role === "assistant" && <Bot aria-hidden="true" />}
-                <p>{message.text}</p>
+                <MessageText text={message.text} />
               </div>
             ))}
-            {loading && <div className="message assistant"><Bot aria-hidden="true" /><p>Checking official college information…</p></div>}
+            {loading && <div className="message assistant"><Bot aria-hidden="true" /><MessageText text="Checking official college information..." /></div>}
             <div ref={messagesEndRef} />
           </div>
           <form className="composer" onSubmit={(event) => { event.preventDefault(); ask(); }}>
             <label className="sr-only" htmlFor="chat-question">Admission or support question</label>
-            <input id="chat-question" name="question" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Type your admission or support question…" autoComplete="off" />
+            <input id="chat-question" name="question" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Type your admission or support question..." autoComplete="off" />
             <button type="submit" aria-label="Send question" disabled={loading || !question.trim()}><Send aria-hidden="true" /></button>
           </form>
         </section>
@@ -107,23 +142,23 @@ function Chatbot() {
           <form onSubmit={submitLead}>
             <label htmlFor="lead-name">
               <span>Full Name</span>
-              <input id="lead-name" required name="name" placeholder="Full name…" autoComplete="name" value={lead.name} onChange={(e) => setLead({ ...lead, name: e.target.value })} />
+              <input id="lead-name" required name="name" placeholder="Full name..." autoComplete="name" value={lead.name} onChange={(e) => setLead({ ...lead, name: e.target.value })} />
             </label>
             <label htmlFor="lead-phone">
               <span>Phone or WhatsApp</span>
-              <input id="lead-phone" required type="tel" name="phone" placeholder="Phone or WhatsApp…" autoComplete="tel" value={lead.phone} onChange={(e) => setLead({ ...lead, phone: e.target.value })} />
+              <input id="lead-phone" required type="tel" name="phone" placeholder="Phone or WhatsApp..." autoComplete="tel" value={lead.phone} onChange={(e) => setLead({ ...lead, phone: e.target.value })} />
             </label>
             <label htmlFor="lead-email">
               <span>Email</span>
-              <input id="lead-email" type="email" name="email" placeholder="Email…" autoComplete="email" spellCheck={false} value={lead.email} onChange={(e) => setLead({ ...lead, email: e.target.value })} />
+              <input id="lead-email" type="email" name="email" placeholder="Email..." autoComplete="email" spellCheck={false} value={lead.email} onChange={(e) => setLead({ ...lead, email: e.target.value })} />
             </label>
             <label htmlFor="lead-program">
               <span>Program Interest</span>
-              <input id="lead-program" name="programInterest" placeholder="Program interest…" autoComplete="off" value={lead.programInterest} onChange={(e) => setLead({ ...lead, programInterest: e.target.value })} />
+              <input id="lead-program" name="programInterest" placeholder="Program interest..." autoComplete="off" value={lead.programInterest} onChange={(e) => setLead({ ...lead, programInterest: e.target.value })} />
             </label>
             <label htmlFor="lead-message">
               <span>Message</span>
-              <textarea id="lead-message" name="message" placeholder="Message…" autoComplete="off" value={lead.message} onChange={(e) => setLead({ ...lead, message: e.target.value })} />
+              <textarea id="lead-message" name="message" placeholder="Message..." autoComplete="off" value={lead.message} onChange={(e) => setLead({ ...lead, message: e.target.value })} />
             </label>
             <button type="submit"><Users aria-hidden="true" /> Send Details</button>
           </form>
@@ -278,15 +313,15 @@ function AdminDashboard() {
           <form onSubmit={addFaq} className="stack">
             <label htmlFor="faq-question">
               <span>Question</span>
-              <input id="faq-question" placeholder="Question…" value={faq.question} onChange={(e) => setFaq({ ...faq, question: e.target.value })} />
+              <input id="faq-question" placeholder="Question..." value={faq.question} onChange={(e) => setFaq({ ...faq, question: e.target.value })} />
             </label>
             <label htmlFor="faq-answer">
               <span>Official Answer</span>
-              <textarea id="faq-answer" placeholder="Official answer…" value={faq.answer} onChange={(e) => setFaq({ ...faq, answer: e.target.value })} />
+              <textarea id="faq-answer" placeholder="Official answer..." value={faq.answer} onChange={(e) => setFaq({ ...faq, answer: e.target.value })} />
             </label>
             <label htmlFor="faq-category">
               <span>Category</span>
-              <input id="faq-category" placeholder="Category…" value={faq.category} onChange={(e) => setFaq({ ...faq, category: e.target.value })} />
+              <input id="faq-category" placeholder="Category..." value={faq.category} onChange={(e) => setFaq({ ...faq, category: e.target.value })} />
             </label>
             <button type="submit"><Plus aria-hidden="true" /> Add FAQ</button>
           </form>
@@ -335,11 +370,11 @@ function AdminDashboard() {
           <form onSubmit={uploadDocument} className="stack upload-form">
             <label htmlFor="doc-title">
               <span>Document Title</span>
-              <input id="doc-title" placeholder="Document title…" value={doc.title} onChange={(e) => setDoc({ ...doc, title: e.target.value })} />
+              <input id="doc-title" placeholder="Document title..." value={doc.title} onChange={(e) => setDoc({ ...doc, title: e.target.value })} />
             </label>
             <label htmlFor="doc-category">
               <span>Category</span>
-              <input id="doc-category" placeholder="Category…" value={doc.category} onChange={(e) => setDoc({ ...doc, category: e.target.value })} />
+              <input id="doc-category" placeholder="Category..." value={doc.category} onChange={(e) => setDoc({ ...doc, category: e.target.value })} />
             </label>
             <label htmlFor="doc-file">
               <span>Document File</span>
@@ -383,3 +418,4 @@ function Metric({ icon, label, value }) {
     </div>
   );
 }
+

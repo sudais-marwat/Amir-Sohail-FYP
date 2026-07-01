@@ -1,5 +1,14 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+function cleanModelAnswer(text) {
+  return String(text || "")
+    .replace(/\*\*/g, "")
+    .replace(/^\s*\*\s+/gm, "- ")
+    .replace(/[ \t]+$/gm, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 export async function generateAnswer(question, context) {
   if (!context) {
     return "I could not find verified Hadaf College information for this question yet. Please contact the admission office or leave your details so the team can follow up.";
@@ -15,6 +24,10 @@ export async function generateAnswer(question, context) {
     "You are the official Hadaf College website admission and student support assistant.",
     "Answer only from the provided context. If the context is insufficient, say so and suggest contacting admissions.",
     "Keep the answer clear, polite, and helpful.",
+    "Use plain text only. Do not use Markdown, asterisks, bold text, tables, or long paragraphs.",
+    "For list-style answers, use short hyphen bullets. Keep most answers under 120 words.",
+    "For required documents, give a direct common-documents list first. Ask for the program only at the end if requirements may differ.",
+    "Do not repeat the question. Do not add generic disclaimers unless the context is genuinely missing.",
     "",
     `Question: ${question}`,
     "",
@@ -22,5 +35,5 @@ export async function generateAnswer(question, context) {
   ].join("\n");
 
   const result = await model.generateContent(prompt);
-  return result.response.text();
+  return cleanModelAnswer(result.response.text());
 }

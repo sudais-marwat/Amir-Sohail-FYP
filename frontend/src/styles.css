@@ -153,6 +153,10 @@ textarea:focus-visible {
   flex-direction: column;
 }
 
+.chat-workspace {
+  overflow: hidden;
+}
+
 .topbar {
   min-height: 80px;
   display: flex;
@@ -236,19 +240,39 @@ h2 {
 .message {
   display: flex;
   gap: 10px;
-  max-width: 78%;
+  max-width: min(74%, 720px);
   margin-bottom: 14px;
+  align-items: flex-start;
 }
 
-.message p {
+.message-content {
   margin: 0;
-  padding: 12px 14px;
+  padding: 13px 16px;
   border-radius: 16px;
   line-height: 1.55;
   overflow-wrap: anywhere;
 }
 
-.message.assistant p {
+.message-content p,
+.message-content ul {
+  margin: 0;
+}
+
+.message-content p + p,
+.message-content p + ul,
+.message-content ul + p {
+  margin-top: 10px;
+}
+
+.message-content ul {
+  padding-left: 18px;
+}
+
+.message-content li + li {
+  margin-top: 6px;
+}
+
+.message.assistant .message-content {
   background: var(--surface-soft);
   box-shadow: var(--shadow-soft);
 }
@@ -258,7 +282,7 @@ h2 {
   justify-content: flex-end;
 }
 
-.message.user p {
+.message.user .message-content {
   background: var(--coral);
   color: white;
   box-shadow: 8px 8px 18px rgba(154, 59, 45, 0.18);
