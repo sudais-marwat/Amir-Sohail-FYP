@@ -175,8 +175,8 @@ function Chatbot() {
 
 function AdminDashboard() {
   const [token, setToken] = useState(localStorage.getItem("hadaf_admin_token"));
-  const [email, setEmail] = useState("admin@hadaf.edu.pk");
-  const [password, setPassword] = useState("admin12345");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [data, setData] = useState({ analytics: null, faqs: [], leads: [], queries: [], documents: [] });
   const [faq, setFaq] = useState({ question: "", answer: "", category: "admissions" });
   const [editingFaq, setEditingFaq] = useState(null);
@@ -252,11 +252,11 @@ function AdminDashboard() {
           <h1>Admin Login</h1>
           <label htmlFor="admin-email">
             <span>Email</span>
-            <input id="admin-email" type="email" name="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input id="admin-email" type="email" name="email" placeholder="Admin email..." autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
           <label htmlFor="admin-password">
             <span>Password</span>
-            <input id="admin-password" type="password" name="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input id="admin-password" type="password" name="password" placeholder="Password..." autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </label>
           <button type="submit">Login</button>
         </form>
