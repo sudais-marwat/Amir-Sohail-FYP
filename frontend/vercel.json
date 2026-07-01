@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd .. && npm install --no-audit --no-fund && npm run build --workspace frontend",
+  "buildCommand": "npm install --no-audit --no-fund && npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
   "rewrites": [
