@@ -1,6 +1,6 @@
 # Hadaf RAG Chatbot
 
-AI-powered admission and student support chatbot based on the FYP proposal.
+AI-powered admission and student support chatbot based on the Amir Sohail FYP proposal.
 
 ## What Is Included
 
