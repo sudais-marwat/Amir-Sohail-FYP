@@ -36,9 +36,14 @@ function MessageText({ text }) {
           );
         }
 
-        return lines.map((line, lineIndex) => (
-          <p key={`line-${blockIndex}-${lineIndex}`}>{line}</p>
-        ));
+        return lines.map((line, lineIndex) => {
+          const isSectionLabel = line.length < 80 && /:$/.test(line);
+          return (
+            <p className={isSectionLabel ? "message-section-label" : ""} key={`line-${blockIndex}-${lineIndex}`}>
+              {line}
+            </p>
+          );
+        });
       })}
     </div>
   );

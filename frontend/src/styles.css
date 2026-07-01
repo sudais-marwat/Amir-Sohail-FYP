@@ -4,7 +4,7 @@
   color: #18212f;
   background: #edf3f1;
   --surface: #edf3f1;
-  --surface-soft: #f7fbfa;
+  --surface-soft: #fbfefd;
   --surface-deep: #dfe9e6;
   --ink: #18212f;
   --muted: #62726f;
@@ -13,9 +13,9 @@
   --green-mid: #21473b;
   --coral: #c84f3d;
   --line: #d4dfdc;
-  --shadow-raised: 12px 12px 28px rgba(112, 132, 127, 0.2), -12px -12px 28px rgba(255, 255, 255, 0.86);
-  --shadow-soft: 7px 7px 18px rgba(112, 132, 127, 0.17), -7px -7px 18px rgba(255, 255, 255, 0.82);
-  --shadow-inset: inset 5px 5px 12px rgba(112, 132, 127, 0.18), inset -5px -5px 12px rgba(255, 255, 255, 0.82);
+  --shadow-raised: 10px 10px 26px rgba(112, 132, 127, 0.16), -10px -10px 24px rgba(255, 255, 255, 0.86);
+  --shadow-soft: 5px 5px 16px rgba(112, 132, 127, 0.14), -5px -5px 16px rgba(255, 255, 255, 0.8);
+  --shadow-inset: inset 4px 4px 10px rgba(112, 132, 127, 0.16), inset -4px -4px 10px rgba(255, 255, 255, 0.82);
 }
 
 * {
@@ -190,8 +190,8 @@ h2 {
 
 .chat-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 22px;
   flex: 1 1 auto;
   min-height: 0;
 }
@@ -231,25 +231,27 @@ h2 {
 }
 
 .messages {
-  padding: 20px;
+  padding: 28px;
   overflow: auto;
   min-height: 0;
   scroll-behavior: smooth;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(237, 243, 241, 0.1));
 }
 
 .message {
   display: flex;
-  gap: 10px;
-  max-width: min(74%, 720px);
-  margin-bottom: 14px;
+  gap: 12px;
+  max-width: min(86%, 880px);
+  margin-bottom: 18px;
   align-items: flex-start;
 }
 
 .message-content {
   margin: 0;
-  padding: 13px 16px;
-  border-radius: 16px;
-  line-height: 1.55;
+  padding: 18px 20px;
+  border-radius: 18px;
+  font-size: 1rem;
+  line-height: 1.72;
   overflow-wrap: anywhere;
 }
 
@@ -258,22 +260,29 @@ h2 {
   margin: 0;
 }
 
+.message-content .message-section-label {
+  color: var(--green-mid);
+  font-weight: 750;
+}
+
 .message-content p + p,
 .message-content p + ul,
 .message-content ul + p {
-  margin-top: 10px;
+  margin-top: 14px;
 }
 
 .message-content ul {
-  padding-left: 18px;
+  padding-left: 22px;
 }
 
 .message-content li + li {
-  margin-top: 6px;
+  margin-top: 9px;
 }
 
 .message.assistant .message-content {
   background: var(--surface-soft);
+  border: 1px solid rgba(44, 107, 87, 0.1);
+  border-left: 4px solid rgba(44, 107, 87, 0.38);
   box-shadow: var(--shadow-soft);
 }
 
@@ -285,6 +294,8 @@ h2 {
 .message.user .message-content {
   background: var(--coral);
   color: white;
+  padding: 13px 17px;
+  line-height: 1.45;
   box-shadow: 8px 8px 18px rgba(154, 59, 45, 0.18);
 }
 
