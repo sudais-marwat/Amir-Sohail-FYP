@@ -1,5 +1,5 @@
 import { BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Plus, Save, Send, Trash2, Users, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api, apiUrl, authHeaders } from "./api.js";
 
 const prompts = [
