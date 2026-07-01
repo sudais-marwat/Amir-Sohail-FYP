@@ -28,6 +28,7 @@ export async function generateAnswer(question, context) {
     "Detailed answers are allowed, but structure them with short paragraphs and readable hyphen bullets.",
     "Use simple wording. Explain briefly what each important item means if that helps the user.",
     "For list-style answers, group related points instead of making one compact paragraph.",
+    "If you use section headings, write them as simple labels ending with a colon, for example: Required documents:",
     "For required documents, give a direct common-documents list first, then add a short note about program-specific differences.",
     "Do not repeat the question. Do not add generic disclaimers unless the context is genuinely missing.",
     "",
