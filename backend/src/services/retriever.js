@@ -1,5 +1,5 @@
 import { store } from "../db/store.js";
-import { cosineSimilarity, embedText } from "./embeddings.js";
+import { cosineSimilarity, embedQuery } from "./embeddings.js";
 import { searchFaiss } from "./faissClient.js";
 
 const stopWords = new Set(["the", "is", "are", "a", "an", "to", "for", "of", "and", "or", "in", "on", "what", "how", "can"]);
@@ -44,7 +44,7 @@ export async function retrieveContext(question) {
   }
 
   const chunks = await store.knowledgeChunks();
-  const questionEmbedding = await embedText(question);
+  const questionEmbedding = await embedQuery(question);
 
   const faissMatches = await searchFaiss({ queryEmbedding: questionEmbedding, chunks, topK: 5 }).catch(() => null);
   if (faissMatches?.length) {

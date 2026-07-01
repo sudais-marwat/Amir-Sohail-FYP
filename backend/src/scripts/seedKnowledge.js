@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import dotenv from "dotenv";
 import { chunkText } from "../services/chunker.js";
-import { embedText } from "../services/embeddings.js";
+import { embedDocument } from "../services/embeddings.js";
 
 dotenv.config();
 
@@ -13,7 +13,7 @@ const text = await readFile(seedPath, "utf8");
 const chunks = await Promise.all(
   chunkText(text, 1200, 160).map(async (chunk) => ({
     text: chunk,
-    embedding: await embedText(chunk)
+    embedding: await embedDocument(chunk, "Questions.xlsx Knowledge")
   }))
 );
 

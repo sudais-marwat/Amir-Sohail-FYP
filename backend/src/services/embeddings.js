@@ -1,6 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const fallbackDimensions = 128;
+const embeddingModel = process.env.GEMINI_EMBEDDING_MODEL || "gemini-embedding-2";
 
 function fallbackEmbedding(text) {
   const vector = Array.from({ length: fallbackDimensions }, () => 0);
@@ -21,10 +22,45 @@ function fallbackEmbedding(text) {
 export async function embedText(text) {
   if (!process.env.GEMINI_API_KEY) return fallbackEmbedding(text);
 
+  if (embeddingModel.startsWith("gemini-embedding-")) {
+    return embedWithGeminiEmbedding(text);
+  }
+
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: process.env.GEMINI_EMBEDDING_MODEL || "text-embedding-004" });
+  const model = genAI.getGenerativeModel({ model: embeddingModel });
   const result = await model.embedContent(text);
   return result.embedding.values;
+}
+
+export async function embedQuery(text) {
+  return embedText(`task: question answering | query: ${text}`);
+}
+
+export async function embedDocument(text, title = "none") {
+  return embedText(`title: ${title || "none"} | text: ${text}`);
+}
+
+async function embedWithGeminiEmbedding(text) {
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${embeddingModel}:embedContent`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-goog-api-key": process.env.GEMINI_API_KEY
+    },
+    body: JSON.stringify({
+      model: `models/${embeddingModel}`,
+      content: { parts: [{ text }] }
+    })
+  });
+
+  if (!res.ok) {
+    throw new Error(`Gemini embedding failed with ${res.status}`);
+  }
+
+  const data = await res.json();
+  const values = data.embedding?.values || data.embeddings?.[0]?.values || data.embeddings?.values;
+  if (!Array.isArray(values)) throw new Error("Gemini embedding response did not include vector values");
+  return values;
 }
 
 export function cosineSimilarity(left, right) {

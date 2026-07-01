@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import pg from "pg";
 import { v4 as uuid } from "uuid";
 import { chunkText } from "../services/chunker.js";
-import { embedText } from "../services/embeddings.js";
+import { embedDocument } from "../services/embeddings.js";
 
 const { Pool } = pg;
 const pool = process.env.DATABASE_URL ? new Pool({ connectionString: process.env.DATABASE_URL }) : null;
@@ -78,7 +78,7 @@ async function seedKnowledge() {
       faq_id: faq.id,
       chunk_text: text,
       category: faq.category,
-      embedding: await embedText(text),
+      embedding: await embedDocument(text, faq.question),
       created_at: new Date().toISOString()
     });
   }
@@ -101,7 +101,7 @@ async function seedKnowledge() {
         document_id: doc.id,
         chunk_text: chunk,
         category: doc.category,
-        embedding: await embedText(chunk),
+        embedding: await embedDocument(chunk, doc.title),
         created_at: new Date().toISOString()
       });
     }

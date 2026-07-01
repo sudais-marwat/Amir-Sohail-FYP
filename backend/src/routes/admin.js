@@ -5,7 +5,7 @@ import { store } from "../db/store.js";
 import { requireAuth } from "../middleware/auth.js";
 import { chunkText } from "../services/chunker.js";
 import { extractDocumentText } from "../services/documentText.js";
-import { embedText } from "../services/embeddings.js";
+import { embedDocument } from "../services/embeddings.js";
 import { saveUpload } from "../services/uploadStorage.js";
 import { toCsv } from "../utils/csv.js";
 import { HttpError } from "../utils/errors.js";
@@ -34,7 +34,7 @@ adminRouter.get("/faqs", async (_req, res, next) => {
 adminRouter.post("/faqs", async (req, res, next) => {
   try {
     if (!req.body.question || !req.body.answer) throw new HttpError(400, "Question and answer are required");
-    const embedding = await embedText(`${req.body.question}\n${req.body.answer}`);
+    const embedding = await embedDocument(`${req.body.question}\n${req.body.answer}`, req.body.question);
     res.status(201).json(await store.createFaq({ ...req.body, embedding }));
   } catch (err) {
     next(err);
@@ -43,7 +43,7 @@ adminRouter.post("/faqs", async (req, res, next) => {
 
 adminRouter.put("/faqs/:id", async (req, res, next) => {
   try {
-    const embedding = await embedText(`${req.body.question}\n${req.body.answer}`);
+    const embedding = await embedDocument(`${req.body.question}\n${req.body.answer}`, req.body.question);
     const faq = await store.updateFaq(req.params.id, { ...req.body, embedding });
     if (!faq) throw new HttpError(404, "FAQ not found");
     res.json(faq);
@@ -75,11 +75,12 @@ adminRouter.post("/documents", upload.single("file"), async (req, res, next) => 
     const text = await extractDocumentText(req.file);
     const chunkTexts = chunkText(text);
     if (!chunkTexts.length) throw new HttpError(400, "No readable text found in document");
-    const chunks = await Promise.all(chunkTexts.map(async (chunk) => ({ text: chunk, embedding: await embedText(chunk) })));
+    const title = req.body.title || req.file.originalname;
+    const chunks = await Promise.all(chunkTexts.map(async (chunk) => ({ text: chunk, embedding: await embedDocument(chunk, title) })));
     const filePath = await saveUpload(req.file);
     const doc = await store.addDocument(
       {
-        title: req.body.title || req.file.originalname,
+        title,
         fileName: req.file.originalname,
         filePath,
         category: req.body.category || "general",

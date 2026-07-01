@@ -10,7 +10,7 @@ export async function generateAnswer(question, context) {
   }
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL || "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL || "gemini-2.5-flash" });
   const prompt = [
     "You are the official Hadaf College website admission and student support assistant.",
     "Answer only from the provided context. If the context is insufficient, say so and suggest contacting admissions.",
