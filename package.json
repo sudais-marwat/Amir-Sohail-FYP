@@ -8,6 +8,7 @@
     "dev:full": "node node_modules/concurrently/dist/bin/concurrently.js \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\" \"npm run faiss\"",
     "faiss": "\"C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python312\\python.exe\" -m uvicorn main:app --app-dir faiss-service --host 127.0.0.1 --port 8001",
     "start": "npm run start --workspace backend",
+    "db:schema": "npm run db:schema --workspace backend",
     "seed:admin": "npm run seed:admin --workspace backend",
     "seed:knowledge": "npm run seed:knowledge --workspace backend",
     "test": "npm run test --workspace backend",
