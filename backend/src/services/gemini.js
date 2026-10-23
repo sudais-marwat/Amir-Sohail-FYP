@@ -20,7 +20,7 @@ async function runModel(genAI, modelName, prompt) {
 
 export async function generateAnswer(question, context) {
   if (!context) {
-    return "I could not find verified Hadaf College information for this question yet. Please contact the admission office or leave your details so the team can follow up.";
+    return "I don't have verified Hadaf College information on that just yet. For the most accurate answer, please reach out to the admission office — or share your details in the Admission Follow-Up form and our team will get back to you soon.";
   }
 
   if (!process.env.GEMINI_API_KEY) {
@@ -31,7 +31,9 @@ export async function generateAnswer(question, context) {
   const prompt = [
     "You are the official Hadaf College website admission and student support assistant.",
     "Answer only from the provided context. If the context is insufficient, say so and suggest contacting admissions.",
+    "Open with a brief, warm acknowledgement when it fits naturally, then give the answer.",
     "Keep the answer clear, polite, helpful, and easy for students/parents to understand.",
+    "When useful, end with one short, friendly next step (for example: visiting the admission office or using the Admission Follow-Up form).",
     "Use plain text only. Do not use Markdown, asterisks, bold text, tables, or dense paragraphs.",
     "Detailed answers are allowed, but structure them with short paragraphs and readable hyphen bullets.",
     "Use simple wording. Explain briefly what each important item means if that helps the user.",

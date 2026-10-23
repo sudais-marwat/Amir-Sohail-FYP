@@ -17,6 +17,23 @@ function cleanAssistantText(text) {
     .trim();
 }
 
+function formatTime(value) {
+  try {
+    return new Date(value).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  } catch {
+    return "";
+  }
+}
+
+function TypingDots() {
+  return (
+    <div className="message-content typing" aria-label="Assistant is typing">
+      <span className="typing-dots" aria-hidden="true"><i /><i /><i /></span>
+      <span className="sr-only">Checking official college information</span>
+    </div>
+  );
+}
+
 function MessageText({ text }) {
   const blocks = cleanAssistantText(text).split(/\n{2,}/).filter(Boolean);
 
@@ -76,11 +93,12 @@ export function App() {
 
 function Chatbot() {
   const [messages, setMessages] = useState([
-    { role: "assistant", text: "Assalamualaikum. Ask me about admissions, programs, fees, scholarships, documents, hostel, transport, or student support." }
+    { role: "assistant", text: "Assalamualaikum. Ask me about admissions, programs, fees, scholarships, documents, hostel, transport, or student support.", at: Date.now() }
   ]);
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
   const [lead, setLead] = useState({ name: "", phone: "", email: "", programInterest: "", message: "" });
+  const [leadStatus, setLeadStatus] = useState("");
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -91,13 +109,13 @@ function Chatbot() {
     const clean = text.trim();
     if (!clean || loading) return;
     setQuestion("");
-    setMessages((items) => [...items, { role: "user", text: clean }]);
+    setMessages((items) => [...items, { role: "user", text: clean, at: Date.now() }]);
     setLoading(true);
     try {
       const data = await api("/chat", { method: "POST", body: JSON.stringify({ question: clean }) });
-      setMessages((items) => [...items, { role: "assistant", text: data.answer }]);
+      setMessages((items) => [...items, { role: "assistant", text: data.answer, at: Date.now() }]);
     } catch (err) {
-      setMessages((items) => [...items, { role: "assistant", text: err.message }]);
+      setMessages((items) => [...items, { role: "assistant", text: err.message, at: Date.now() }]);
     } finally {
       setLoading(false);
     }
@@ -105,8 +123,14 @@ function Chatbot() {
 
   async function submitLead(event) {
     event.preventDefault();
-    await api("/chat/leads", { method: "POST", body: JSON.stringify(lead) });
-    setLead({ name: "", phone: "", email: "", programInterest: "", message: "Please contact me about admission." });
+    setLeadStatus("sending");
+    try {
+      await api("/chat/leads", { method: "POST", body: JSON.stringify(lead) });
+      setLead({ name: "", phone: "", email: "", programInterest: "", message: "" });
+      setLeadStatus("sent");
+    } catch {
+      setLeadStatus("error");
+    }
   }
 
   return (
@@ -129,10 +153,13 @@ function Chatbot() {
             {messages.map((message, index) => (
               <div className={`message ${message.role}`} key={`${message.role}-${index}`}>
                 {message.role === "assistant" && <Bot aria-hidden="true" />}
-                <MessageText text={message.text} />
+                <div className="message-bubble">
+                  <MessageText text={message.text} />
+                  {message.at && <time className="message-time" dateTime={new Date(message.at).toISOString()}>{formatTime(message.at)}</time>}
+                </div>
               </div>
             ))}
-            {loading && <div className="message assistant"><Bot aria-hidden="true" /><MessageText text="Checking official college information..." /></div>}
+            {loading && <div className="message assistant"><Bot aria-hidden="true" /><TypingDots /></div>}
             <div ref={messagesEndRef} />
           </div>
           <form className="composer" onSubmit={(event) => { event.preventDefault(); ask(); }}>
@@ -144,6 +171,7 @@ function Chatbot() {
 
         <aside className="lead-panel">
           <h2>Admission Follow-Up</h2>
+          <p className="lead-intro">Share your details and our admission team will reach out to help you personally.</p>
           <form onSubmit={submitLead}>
             <label htmlFor="lead-name">
               <span>Full Name</span>
@@ -165,7 +193,11 @@ function Chatbot() {
               <span>Message</span>
               <textarea id="lead-message" name="message" placeholder="Message..." autoComplete="off" value={lead.message} onChange={(e) => setLead({ ...lead, message: e.target.value })} />
             </label>
-            <button type="submit"><Users aria-hidden="true" /> Send Details</button>
+            <button type="submit" disabled={leadStatus === "sending"}>
+              <Users aria-hidden="true" /> {leadStatus === "sending" ? "Sending…" : "Send Details"}
+            </button>
+            {leadStatus === "sent" && <p className="lead-note success" role="status">Thank you! Our admission team will contact you soon.</p>}
+            {leadStatus === "error" && <p className="lead-note error" role="status">Something went wrong. Please try again.</p>}
           </form>
         </aside>
       </div>
