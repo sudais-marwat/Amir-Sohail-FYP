@@ -1,6 +1,6 @@
 ﻿import { BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Plus, Save, Send, Trash2, Users, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
-import { api, apiUrl, authHeaders } from "./api.js";
+import { api, apiUrl, authHeaders, warmUp } from "./api.js";
 
 const prompts = [
   "Are admissions currently open?",
@@ -25,11 +25,14 @@ function formatTime(value) {
   }
 }
 
-function TypingDots() {
+function TypingDots({ slow }) {
   return (
-    <div className="message-content typing" aria-label="Assistant is typing">
-      <span className="typing-dots" aria-hidden="true"><i /><i /><i /></span>
-      <span className="sr-only">Checking official college information</span>
+    <div className="message-bubble">
+      <div className="message-content typing" aria-label="Assistant is typing">
+        <span className="typing-dots" aria-hidden="true"><i /><i /><i /></span>
+        <span className="sr-only">Checking official college information</span>
+      </div>
+      {slow && <span className="message-time">Waking up the assistant — this can take a moment…</span>}
     </div>
   );
 }
@@ -99,11 +102,17 @@ function Chatbot() {
   const [loading, setLoading] = useState(false);
   const [lead, setLead] = useState({ name: "", phone: "", email: "", programInterest: "", message: "" });
   const [leadStatus, setLeadStatus] = useState("");
+  const [slow, setSlow] = useState(false);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
   }, [messages, loading]);
+
+  // Wake a possibly-sleeping backend as soon as the page loads.
+  useEffect(() => {
+    warmUp();
+  }, []);
 
   async function ask(text = question) {
     const clean = text.trim();
@@ -111,12 +120,15 @@ function Chatbot() {
     setQuestion("");
     setMessages((items) => [...items, { role: "user", text: clean, at: Date.now() }]);
     setLoading(true);
+    const slowTimer = setTimeout(() => setSlow(true), 7000);
     try {
       const data = await api("/chat", { method: "POST", body: JSON.stringify({ question: clean }) });
       setMessages((items) => [...items, { role: "assistant", text: data.answer, at: Date.now() }]);
     } catch (err) {
       setMessages((items) => [...items, { role: "assistant", text: err.message, at: Date.now() }]);
     } finally {
+      clearTimeout(slowTimer);
+      setSlow(false);
       setLoading(false);
     }
   }
@@ -159,7 +171,7 @@ function Chatbot() {
                 </div>
               </div>
             ))}
-            {loading && <div className="message assistant"><Bot aria-hidden="true" /><TypingDots /></div>}
+            {loading && <div className="message assistant"><Bot aria-hidden="true" /><TypingDots slow={slow} /></div>}
             <div ref={messagesEndRef} />
           </div>
           <form className="composer" onSubmit={(event) => { event.preventDefault(); ask(); }}>

@@ -43,8 +43,11 @@ export async function retrieveContext(question) {
     return formatResult(question, [], "fallback");
   }
 
-  const chunks = await store.knowledgeChunks();
-  const questionEmbedding = await embedQuery(question);
+  // These two are independent, so run them together to cut latency.
+  const [chunks, questionEmbedding] = await Promise.all([
+    store.knowledgeChunks(),
+    embedQuery(question)
+  ]);
 
   const faissMatches = await searchFaiss({ queryEmbedding: questionEmbedding, chunks, topK: 5 }).catch(() => null);
   if (faissMatches?.length) {

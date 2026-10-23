@@ -29,7 +29,14 @@ function cleanModelAnswer(text) {
 }
 
 async function runModel(genAI, modelName, prompt) {
-  const model = genAI.getGenerativeModel({ model: modelName });
+  const model = genAI.getGenerativeModel({
+    model: modelName,
+    generationConfig: {
+      temperature: 0.4,
+      topP: 0.9,
+      maxOutputTokens: 800
+    }
+  });
   const result = await model.generateContent(prompt);
   return cleanModelAnswer(result.response.text());
 }
