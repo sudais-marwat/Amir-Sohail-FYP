@@ -1,4 +1,4 @@
-﻿import { ArrowRight, BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Phone, Plus, Save, Send, Sparkles, Trash2, Users, X } from "lucide-react";
+﻿import { ArrowRight, BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Phone, Plus, RotateCcw, Save, Send, Sparkles, Trash2, Users, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { api, apiUrl, authHeaders, warmUp } from "./api.js";
 
@@ -100,6 +100,11 @@ function Chatbot() {
 
   const started = messages.length > 1 || loading;
 
+  function newChat() {
+    setMessages((items) => items.slice(0, 1));
+    setQuestion("");
+  }
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
   }, [messages, loading]);
@@ -151,9 +156,16 @@ function Chatbot() {
               <span className="assistant-status"><i aria-hidden="true" /> Online · replies in seconds</span>
             </div>
           </div>
-          <button type="button" className="ghost-btn" onClick={() => setShowContact(true)}>
-            <Phone aria-hidden="true" /><span>Talk to a counselor</span>
-          </button>
+          <div className="head-actions">
+            {started && (
+              <button type="button" className="icon-ghost" title="Start a new chat" aria-label="Start a new chat" onClick={newChat}>
+                <RotateCcw aria-hidden="true" />
+              </button>
+            )}
+            <button type="button" className="ghost-btn" onClick={() => setShowContact(true)}>
+              <Phone aria-hidden="true" /><span>Talk to a counselor</span>
+            </button>
+          </div>
         </header>
 
         <div className="messages" role="log" aria-live="polite" aria-label="Chat conversation">
@@ -203,6 +215,7 @@ function Chatbot() {
           <label className="sr-only" htmlFor="chat-question">Admission or support question</label>
           <input id="chat-question" name="question" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask about admissions, programs, fees, scholarships…" autoComplete="off" />
           <button type="submit" aria-label="Send question" disabled={loading || !question.trim()}><Send aria-hidden="true" /></button>
+          <p className="composer-foot">Hadaf Assistant can make mistakes — please confirm important details with the admission office.</p>
         </form>
       </div>
 

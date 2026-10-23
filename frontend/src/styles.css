@@ -227,6 +227,7 @@ svg {
 .chat-window {
   width: 100%;
   max-width: 880px;
+  max-height: 840px;
   margin: auto;
   height: 100%;
   display: grid;
@@ -386,7 +387,12 @@ svg {
   color: var(--ink);
   font-weight: 550;
   font-size: 0.92rem;
+  text-align: left;
   box-shadow: var(--sh-1);
+}
+
+.suggestions button span {
+  line-height: 1.35;
 }
 
 .suggestions button svg {
@@ -618,6 +624,42 @@ svg {
 .composer button:disabled {
   background: #b9c6c1;
   box-shadow: none;
+}
+
+.composer-foot {
+  grid-column: 1 / -1;
+  margin: 2px 2px 0;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--faint);
+}
+
+.head-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-ghost {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  color: var(--ink-2);
+}
+
+.icon-ghost svg {
+  width: 17px;
+  height: 17px;
+}
+
+.icon-ghost:hover {
+  background: var(--brand-50);
+  border-color: var(--brand-100);
+  color: var(--brand-strong);
 }
 
 /* ---------- Forms (shared) ---------- */
