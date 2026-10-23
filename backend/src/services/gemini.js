@@ -1,7 +1,23 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const PRIMARY_MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
-const FALLBACK_MODEL = process.env.GEMINI_FALLBACK_MODEL || "gemini-3.1-flash-lite";
+// Models Google has retired — if one is configured (e.g. a stale env var on
+// the host), ignore it and use the current default instead.
+const RETIRED_MODELS = new Set([
+  "gemini-2.5-flash",
+  "gemini-1.5-flash",
+  "gemini-1.5-pro",
+  "gemini-1.0-pro",
+  "gemini-pro"
+]);
+
+function resolveModel(configured, safeDefault) {
+  const name = String(configured || "").trim();
+  if (!name || RETIRED_MODELS.has(name)) return safeDefault;
+  return name;
+}
+
+const PRIMARY_MODEL = resolveModel(process.env.GEMINI_MODEL, "gemini-3.5-flash-lite");
+const FALLBACK_MODEL = resolveModel(process.env.GEMINI_FALLBACK_MODEL, "gemini-3.1-flash-lite");
 
 function cleanModelAnswer(text) {
   return String(text || "")
