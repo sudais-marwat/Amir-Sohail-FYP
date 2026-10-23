@@ -1,12 +1,20 @@
-﻿import { ArrowRight, BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Phone, Plus, RotateCcw, Save, Send, Sparkles, Trash2, Users, X } from "lucide-react";
+﻿import { ArrowRight, Award, BarChart3, Bot, BookOpen, ClipboardCheck, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Bus, Menu, Plus, RotateCcw, Save, Send, Sparkles, Trash2, Users, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { api, apiUrl, authHeaders, warmUp } from "./api.js";
 
 const prompts = [
-  "Are admissions currently open?",
-  "What documents are required?",
-  "Which programs are offered?",
-  "Are scholarships available?"
+  { text: "Are admissions currently open?", icon: ClipboardCheck },
+  { text: "What documents are required?", icon: FileText },
+  { text: "Which programs are offered?", icon: BookOpen },
+  { text: "Are scholarships available?", icon: Award }
+];
+
+const capabilities = [
+  { label: "Admissions & deadlines", icon: ClipboardCheck },
+  { label: "Programs & courses", icon: BookOpen },
+  { label: "Fees & scholarships", icon: Award },
+  { label: "Documents required", icon: FileText },
+  { label: "Hostel & transport", icon: Bus }
 ];
 
 function cleanAssistantText(text) {
@@ -59,29 +67,61 @@ function MessageText({ text }) {
 
 export function App() {
   const [view, setView] = useState("chat");
+  const [navOpen, setNavOpen] = useState(false);
+
+  function go(next) {
+    setView(next);
+    setNavOpen(false);
+  }
 
   return (
-    <div className="app">
-      <header className="appbar">
-        <div className="appbar-brand">
+    <div className={`app ${navOpen ? "nav-open" : ""}`}>
+      <button type="button" className="scrim" aria-label="Close menu" onClick={() => setNavOpen(false)} />
+
+      <aside className="sidebar">
+        <div className="sidebar-brand">
           <span className="logo"><GraduationCap aria-hidden="true" /></span>
-          <div className="appbar-brand-text">
+          <div className="sidebar-brand-text">
             <strong>Hadaf College</strong>
             <span>Admission Assistant</span>
           </div>
         </div>
-        <nav className="appbar-nav" aria-label="Primary">
-          <button type="button" className={view === "chat" ? "active" : ""} onClick={() => setView("chat")}>
-            <MessageCircle aria-hidden="true" /><span>Chat</span>
+
+        <nav className="side-nav" aria-label="Primary">
+          <button type="button" className={view === "chat" ? "active" : ""} onClick={() => go("chat")}>
+            <MessageCircle aria-hidden="true" /><span>Chat Assistant</span>
           </button>
-          <button type="button" className={view === "admin" ? "active" : ""} onClick={() => setView("admin")}>
-            <BarChart3 aria-hidden="true" /><span>Admin</span>
+          <button type="button" className={view === "admin" ? "active" : ""} onClick={() => go("admin")}>
+            <BarChart3 aria-hidden="true" /><span>Admin Dashboard</span>
           </button>
         </nav>
-      </header>
-      <main className="app-main">
-        {view === "chat" ? <Chatbot /> : <AdminDashboard />}
-      </main>
+
+        <div className="side-section">
+          <p className="side-section-title">What I can help with</p>
+          <ul className="capability-list">
+            {capabilities.map(({ label, icon: Icon }) => (
+              <li key={label}><Icon aria-hidden="true" /><span>{label}</span></li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="sidebar-foot">
+          <span className="dot" aria-hidden="true" />
+          <span>AI assistant · Online 24/7</span>
+        </div>
+      </aside>
+
+      <div className="workspace">
+        <header className="topbar">
+          <button type="button" className="menu-btn" aria-label="Open menu" onClick={() => setNavOpen(true)}>
+            <Menu aria-hidden="true" />
+          </button>
+          <span className="topbar-brand">Hadaf College</span>
+        </header>
+        <main className="app-main">
+          {view === "chat" ? <Chatbot /> : <AdminDashboard />}
+        </main>
+      </div>
     </div>
   );
 }
@@ -93,9 +133,6 @@ function Chatbot() {
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
   const [slow, setSlow] = useState(false);
-  const [lead, setLead] = useState({ name: "", phone: "", email: "", programInterest: "", message: "" });
-  const [leadStatus, setLeadStatus] = useState("");
-  const [showContact, setShowContact] = useState(false);
   const messagesEndRef = useRef(null);
 
   const started = messages.length > 1 || loading;
@@ -133,52 +170,36 @@ function Chatbot() {
     }
   }
 
-  async function submitLead(event) {
-    event.preventDefault();
-    setLeadStatus("sending");
-    try {
-      await api("/chat/leads", { method: "POST", body: JSON.stringify(lead) });
-      setLead({ name: "", phone: "", email: "", programInterest: "", message: "" });
-      setLeadStatus("sent");
-    } catch {
-      setLeadStatus("error");
-    }
-  }
-
   return (
     <div className="chat">
-      <div className="chat-window">
-        <header className="chat-head">
-          <div className="assistant-id">
-            <span className="assistant-avatar"><Bot aria-hidden="true" /></span>
-            <div>
-              <strong>Hadaf Assistant</strong>
-              <span className="assistant-status"><i aria-hidden="true" /> Online · replies in seconds</span>
-            </div>
+      <header className="chat-head">
+        <div className="assistant-id">
+          <span className="assistant-avatar"><Bot aria-hidden="true" /></span>
+          <div>
+            <strong>Hadaf Assistant</strong>
+            <span className="assistant-status"><i aria-hidden="true" /> Online · replies in seconds</span>
           </div>
-          <div className="head-actions">
-            {started && (
-              <button type="button" className="icon-ghost" title="Start a new chat" aria-label="Start a new chat" onClick={newChat}>
-                <RotateCcw aria-hidden="true" />
-              </button>
-            )}
-            <button type="button" className="ghost-btn" onClick={() => setShowContact(true)}>
-              <Phone aria-hidden="true" /><span>Talk to a counselor</span>
-            </button>
-          </div>
-        </header>
+        </div>
+        {started && (
+          <button type="button" className="ghost-btn" title="Start a new chat" onClick={newChat}>
+            <RotateCcw aria-hidden="true" /><span>New chat</span>
+          </button>
+        )}
+      </header>
 
-        <div className="messages" role="log" aria-live="polite" aria-label="Chat conversation">
+      <div className="messages" role="log" aria-live="polite" aria-label="Chat conversation">
+        <div className="messages-inner">
           {!started ? (
             <div className="welcome">
               <span className="welcome-avatar"><Sparkles aria-hidden="true" /></span>
               <h2>How can I help you today?</h2>
               <p>Ask me anything about admissions, programs, fees, scholarships, documents, hostel, or transport.</p>
               <div className="suggestions">
-                {prompts.map((prompt) => (
-                  <button type="button" key={prompt} onClick={() => ask(prompt)}>
-                    <span>{prompt}</span>
-                    <ArrowRight aria-hidden="true" />
+                {prompts.map(({ text, icon: Icon }) => (
+                  <button type="button" key={text} onClick={() => ask(text)}>
+                    <span className="sugg-icon"><Icon aria-hidden="true" /></span>
+                    <span className="sugg-text">{text}</span>
+                    <ArrowRight className="sugg-arrow" aria-hidden="true" />
                   </button>
                 ))}
               </div>
@@ -210,58 +231,16 @@ function Chatbot() {
           )}
           <div ref={messagesEndRef} />
         </div>
+      </div>
 
-        <form className="composer" onSubmit={(event) => { event.preventDefault(); ask(); }}>
+      <form className="composer" onSubmit={(event) => { event.preventDefault(); ask(); }}>
+        <div className="composer-inner">
           <label className="sr-only" htmlFor="chat-question">Admission or support question</label>
           <input id="chat-question" name="question" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask about admissions, programs, fees, scholarships…" autoComplete="off" />
           <button type="submit" aria-label="Send question" disabled={loading || !question.trim()}><Send aria-hidden="true" /></button>
-          <p className="composer-foot">Hadaf Assistant can make mistakes — please confirm important details with the admission office.</p>
-        </form>
-      </div>
-
-      {showContact && (
-        <div className="overlay" role="dialog" aria-modal="true" aria-label="Talk to the admission team">
-          <button type="button" className="overlay-backdrop" aria-label="Close" onClick={() => setShowContact(false)} />
-          <aside className="contact-card">
-            <div className="contact-head">
-              <div>
-                <h2>Talk to our admission team</h2>
-                <p>Leave your details and we'll reach out to help you personally.</p>
-              </div>
-              <button type="button" className="icon-button" aria-label="Close" onClick={() => setShowContact(false)}><X aria-hidden="true" /></button>
-            </div>
-            <form onSubmit={submitLead}>
-              <label htmlFor="lead-name">
-                <span>Full name</span>
-                <input id="lead-name" required name="name" placeholder="e.g. Ahmad Khan" autoComplete="name" value={lead.name} onChange={(e) => setLead({ ...lead, name: e.target.value })} />
-              </label>
-              <div className="field-row">
-                <label htmlFor="lead-phone">
-                  <span>Phone or WhatsApp</span>
-                  <input id="lead-phone" required type="tel" name="phone" placeholder="03xx xxxxxxx" autoComplete="tel" value={lead.phone} onChange={(e) => setLead({ ...lead, phone: e.target.value })} />
-                </label>
-                <label htmlFor="lead-email">
-                  <span>Email <em>(optional)</em></span>
-                  <input id="lead-email" type="email" name="email" placeholder="you@email.com" autoComplete="email" spellCheck={false} value={lead.email} onChange={(e) => setLead({ ...lead, email: e.target.value })} />
-                </label>
-              </div>
-              <label htmlFor="lead-program">
-                <span>Program of interest <em>(optional)</em></span>
-                <input id="lead-program" name="programInterest" placeholder="e.g. F.Sc Pre-Medical, BS Computer Science" autoComplete="off" value={lead.programInterest} onChange={(e) => setLead({ ...lead, programInterest: e.target.value })} />
-              </label>
-              <label htmlFor="lead-message">
-                <span>Message <em>(optional)</em></span>
-                <textarea id="lead-message" name="message" placeholder="Anything you'd like the team to know…" autoComplete="off" value={lead.message} onChange={(e) => setLead({ ...lead, message: e.target.value })} />
-              </label>
-              <button type="submit" className="primary-btn" disabled={leadStatus === "sending"}>
-                <Users aria-hidden="true" /> {leadStatus === "sending" ? "Sending…" : "Request a callback"}
-              </button>
-              {leadStatus === "sent" && <p className="note success" role="status">Thank you! Our admission team will contact you soon.</p>}
-              {leadStatus === "error" && <p className="note error" role="status">Something went wrong. Please try again.</p>}
-            </form>
-          </aside>
         </div>
-      )}
+        <p className="composer-foot">Hadaf Assistant can make mistakes — please confirm important details with the admission office.</p>
+      </form>
     </div>
   );
 }
@@ -363,6 +342,7 @@ function AdminDashboard() {
       <header className="admin-head">
         <p className="eyebrow">Knowledge base control</p>
         <h1>Admin Dashboard</h1>
+        <p className="admin-sub">Manage FAQs and documents, review leads, and see what students are asking.</p>
       </header>
 
       <div className="metrics">
