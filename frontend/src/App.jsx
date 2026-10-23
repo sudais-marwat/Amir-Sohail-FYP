@@ -1,4 +1,4 @@
-﻿import { BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Plus, Save, Send, Trash2, Users, X } from "lucide-react";
+﻿import { ArrowRight, BarChart3, Bot, Edit3, FileText, GraduationCap, LogIn, MessageCircle, Phone, Plus, Save, Send, Sparkles, Trash2, Users, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { api, apiUrl, authHeaders, warmUp } from "./api.js";
 
@@ -25,23 +25,11 @@ function formatTime(value) {
   }
 }
 
-function TypingDots({ slow }) {
-  return (
-    <div className="message-bubble">
-      <div className="message-content typing" aria-label="Assistant is typing">
-        <span className="typing-dots" aria-hidden="true"><i /><i /><i /></span>
-        <span className="sr-only">Checking official college information</span>
-      </div>
-      {slow && <span className="message-time">Waking up the assistant — this can take a moment…</span>}
-    </div>
-  );
-}
-
 function MessageText({ text }) {
   const blocks = cleanAssistantText(text).split(/\n{2,}/).filter(Boolean);
 
   return (
-    <div className="message-content">
+    <div className="bubble-text">
       {blocks.map((block, blockIndex) => {
         const lines = block.split("\n").map((line) => line.trim()).filter(Boolean);
         const isBulletBlock = lines.length > 1 && lines.every((line) => /^-\s+/.test(line));
@@ -59,7 +47,7 @@ function MessageText({ text }) {
         return lines.map((line, lineIndex) => {
           const isSectionLabel = line.length < 80 && /:$/.test(line);
           return (
-            <p className={isSectionLabel ? "message-section-label" : ""} key={`line-${blockIndex}-${lineIndex}`}>
+            <p className={isSectionLabel ? "section-label" : ""} key={`line-${blockIndex}-${lineIndex}`}>
               {line}
             </p>
           );
@@ -73,37 +61,44 @@ export function App() {
   const [view, setView] = useState("chat");
 
   return (
-    <main className="shell">
-      <aside className="sidebar">
-        <div className="brand">
-          <GraduationCap aria-hidden="true" />
-          <div>
+    <div className="app">
+      <header className="appbar">
+        <div className="appbar-brand">
+          <span className="logo"><GraduationCap aria-hidden="true" /></span>
+          <div className="appbar-brand-text">
             <strong>Hadaf College</strong>
-            <span>Admission Support</span>
+            <span>Admission Assistant</span>
           </div>
         </div>
-        <button type="button" className={view === "chat" ? "active" : ""} onClick={() => setView("chat")}>
-          <MessageCircle aria-hidden="true" /> Chatbot
-        </button>
-        <button type="button" className={view === "admin" ? "active" : ""} onClick={() => setView("admin")}>
-          <BarChart3 aria-hidden="true" /> Admin
-        </button>
-      </aside>
-      {view === "chat" ? <Chatbot /> : <AdminDashboard />}
-    </main>
+        <nav className="appbar-nav" aria-label="Primary">
+          <button type="button" className={view === "chat" ? "active" : ""} onClick={() => setView("chat")}>
+            <MessageCircle aria-hidden="true" /><span>Chat</span>
+          </button>
+          <button type="button" className={view === "admin" ? "active" : ""} onClick={() => setView("admin")}>
+            <BarChart3 aria-hidden="true" /><span>Admin</span>
+          </button>
+        </nav>
+      </header>
+      <main className="app-main">
+        {view === "chat" ? <Chatbot /> : <AdminDashboard />}
+      </main>
+    </div>
   );
 }
 
 function Chatbot() {
   const [messages, setMessages] = useState([
-    { role: "assistant", text: "Assalamualaikum. Ask me about admissions, programs, fees, scholarships, documents, hostel, transport, or student support.", at: Date.now() }
+    { role: "assistant", text: "Assalamualaikum! I'm the Hadaf College assistant. Ask me anything about admissions, programs, fees, scholarships, documents, hostel, or transport.", at: Date.now() }
   ]);
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
+  const [slow, setSlow] = useState(false);
   const [lead, setLead] = useState({ name: "", phone: "", email: "", programInterest: "", message: "" });
   const [leadStatus, setLeadStatus] = useState("");
-  const [slow, setSlow] = useState(false);
+  const [showContact, setShowContact] = useState(false);
   const messagesEndRef = useRef(null);
+
+  const started = messages.length > 1 || loading;
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
@@ -146,74 +141,115 @@ function Chatbot() {
   }
 
   return (
-    <section className="workspace chat-workspace">
-      <header className="topbar">
-        <div>
-          <p className="eyebrow">Student and parent support</p>
-          <h1>Ask Hadaf College</h1>
-        </div>
-      </header>
-
-      <div className="chat-layout">
-        <section className="chat-panel" aria-label="Chat messages">
-          <div className="prompt-row">
-            {prompts.map((prompt) => (
-              <button type="button" key={prompt} onClick={() => ask(prompt)}>{prompt}</button>
-            ))}
+    <div className="chat">
+      <div className="chat-window">
+        <header className="chat-head">
+          <div className="assistant-id">
+            <span className="assistant-avatar"><Bot aria-hidden="true" /></span>
+            <div>
+              <strong>Hadaf Assistant</strong>
+              <span className="assistant-status"><i aria-hidden="true" /> Online · replies in seconds</span>
+            </div>
           </div>
-          <div className="messages" role="log" aria-live="polite" aria-label="Chat conversation">
-            {messages.map((message, index) => (
-              <div className={`message ${message.role}`} key={`${message.role}-${index}`}>
-                {message.role === "assistant" && <Bot aria-hidden="true" />}
-                <div className="message-bubble">
-                  <MessageText text={message.text} />
-                  {message.at && <time className="message-time" dateTime={new Date(message.at).toISOString()}>{formatTime(message.at)}</time>}
-                </div>
+          <button type="button" className="ghost-btn" onClick={() => setShowContact(true)}>
+            <Phone aria-hidden="true" /><span>Talk to a counselor</span>
+          </button>
+        </header>
+
+        <div className="messages" role="log" aria-live="polite" aria-label="Chat conversation">
+          {!started ? (
+            <div className="welcome">
+              <span className="welcome-avatar"><Sparkles aria-hidden="true" /></span>
+              <h2>How can I help you today?</h2>
+              <p>Ask me anything about admissions, programs, fees, scholarships, documents, hostel, or transport.</p>
+              <div className="suggestions">
+                {prompts.map((prompt) => (
+                  <button type="button" key={prompt} onClick={() => ask(prompt)}>
+                    <span>{prompt}</span>
+                    <ArrowRight aria-hidden="true" />
+                  </button>
+                ))}
               </div>
-            ))}
-            {loading && <div className="message assistant"><Bot aria-hidden="true" /><TypingDots slow={slow} /></div>}
-            <div ref={messagesEndRef} />
-          </div>
-          <form className="composer" onSubmit={(event) => { event.preventDefault(); ask(); }}>
-            <label className="sr-only" htmlFor="chat-question">Admission or support question</label>
-            <input id="chat-question" name="question" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Type your admission or support question..." autoComplete="off" />
-            <button type="submit" aria-label="Send question" disabled={loading || !question.trim()}><Send aria-hidden="true" /></button>
-          </form>
-        </section>
+            </div>
+          ) : (
+            <>
+              {messages.map((message, index) => (
+                <div className={`msg ${message.role}`} key={`${message.role}-${index}`}>
+                  {message.role === "assistant" && <span className="msg-avatar"><Bot aria-hidden="true" /></span>}
+                  <div className="msg-body">
+                    <div className="bubble"><MessageText text={message.text} /></div>
+                    {message.at && <time className="msg-time" dateTime={new Date(message.at).toISOString()}>{formatTime(message.at)}</time>}
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div className="msg assistant">
+                  <span className="msg-avatar"><Bot aria-hidden="true" /></span>
+                  <div className="msg-body">
+                    <div className="bubble typing" aria-label="Assistant is typing">
+                      <span className="typing-dots" aria-hidden="true"><i /><i /><i /></span>
+                      <span className="sr-only">Checking official college information</span>
+                    </div>
+                    {slow && <span className="msg-time">Waking up the assistant — this can take a moment…</span>}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
 
-        <aside className="lead-panel">
-          <h2>Admission Follow-Up</h2>
-          <p className="lead-intro">Share your details and our admission team will reach out to help you personally.</p>
-          <form onSubmit={submitLead}>
-            <label htmlFor="lead-name">
-              <span>Full Name</span>
-              <input id="lead-name" required name="name" placeholder="Full name..." autoComplete="name" value={lead.name} onChange={(e) => setLead({ ...lead, name: e.target.value })} />
-            </label>
-            <label htmlFor="lead-phone">
-              <span>Phone or WhatsApp</span>
-              <input id="lead-phone" required type="tel" name="phone" placeholder="Phone or WhatsApp..." autoComplete="tel" value={lead.phone} onChange={(e) => setLead({ ...lead, phone: e.target.value })} />
-            </label>
-            <label htmlFor="lead-email">
-              <span>Email</span>
-              <input id="lead-email" type="email" name="email" placeholder="Email..." autoComplete="email" spellCheck={false} value={lead.email} onChange={(e) => setLead({ ...lead, email: e.target.value })} />
-            </label>
-            <label htmlFor="lead-program">
-              <span>Program Interest</span>
-              <input id="lead-program" name="programInterest" placeholder="Program interest..." autoComplete="off" value={lead.programInterest} onChange={(e) => setLead({ ...lead, programInterest: e.target.value })} />
-            </label>
-            <label htmlFor="lead-message">
-              <span>Message</span>
-              <textarea id="lead-message" name="message" placeholder="Message..." autoComplete="off" value={lead.message} onChange={(e) => setLead({ ...lead, message: e.target.value })} />
-            </label>
-            <button type="submit" disabled={leadStatus === "sending"}>
-              <Users aria-hidden="true" /> {leadStatus === "sending" ? "Sending…" : "Send Details"}
-            </button>
-            {leadStatus === "sent" && <p className="lead-note success" role="status">Thank you! Our admission team will contact you soon.</p>}
-            {leadStatus === "error" && <p className="lead-note error" role="status">Something went wrong. Please try again.</p>}
-          </form>
-        </aside>
+        <form className="composer" onSubmit={(event) => { event.preventDefault(); ask(); }}>
+          <label className="sr-only" htmlFor="chat-question">Admission or support question</label>
+          <input id="chat-question" name="question" value={question} onChange={(event) => setQuestion(event.target.value)} placeholder="Ask about admissions, programs, fees, scholarships…" autoComplete="off" />
+          <button type="submit" aria-label="Send question" disabled={loading || !question.trim()}><Send aria-hidden="true" /></button>
+        </form>
       </div>
-    </section>
+
+      {showContact && (
+        <div className="overlay" role="dialog" aria-modal="true" aria-label="Talk to the admission team">
+          <button type="button" className="overlay-backdrop" aria-label="Close" onClick={() => setShowContact(false)} />
+          <aside className="contact-card">
+            <div className="contact-head">
+              <div>
+                <h2>Talk to our admission team</h2>
+                <p>Leave your details and we'll reach out to help you personally.</p>
+              </div>
+              <button type="button" className="icon-button" aria-label="Close" onClick={() => setShowContact(false)}><X aria-hidden="true" /></button>
+            </div>
+            <form onSubmit={submitLead}>
+              <label htmlFor="lead-name">
+                <span>Full name</span>
+                <input id="lead-name" required name="name" placeholder="e.g. Ahmad Khan" autoComplete="name" value={lead.name} onChange={(e) => setLead({ ...lead, name: e.target.value })} />
+              </label>
+              <div className="field-row">
+                <label htmlFor="lead-phone">
+                  <span>Phone or WhatsApp</span>
+                  <input id="lead-phone" required type="tel" name="phone" placeholder="03xx xxxxxxx" autoComplete="tel" value={lead.phone} onChange={(e) => setLead({ ...lead, phone: e.target.value })} />
+                </label>
+                <label htmlFor="lead-email">
+                  <span>Email <em>(optional)</em></span>
+                  <input id="lead-email" type="email" name="email" placeholder="you@email.com" autoComplete="email" spellCheck={false} value={lead.email} onChange={(e) => setLead({ ...lead, email: e.target.value })} />
+                </label>
+              </div>
+              <label htmlFor="lead-program">
+                <span>Program of interest <em>(optional)</em></span>
+                <input id="lead-program" name="programInterest" placeholder="e.g. F.Sc Pre-Medical, BS Computer Science" autoComplete="off" value={lead.programInterest} onChange={(e) => setLead({ ...lead, programInterest: e.target.value })} />
+              </label>
+              <label htmlFor="lead-message">
+                <span>Message <em>(optional)</em></span>
+                <textarea id="lead-message" name="message" placeholder="Anything you'd like the team to know…" autoComplete="off" value={lead.message} onChange={(e) => setLead({ ...lead, message: e.target.value })} />
+              </label>
+              <button type="submit" className="primary-btn" disabled={leadStatus === "sending"}>
+                <Users aria-hidden="true" /> {leadStatus === "sending" ? "Sending…" : "Request a callback"}
+              </button>
+              {leadStatus === "sent" && <p className="note success" role="status">Thank you! Our admission team will contact you soon.</p>}
+              {leadStatus === "error" && <p className="note error" role="status">Something went wrong. Please try again.</p>}
+            </form>
+          </aside>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -290,43 +326,42 @@ function AdminDashboard() {
 
   if (!token) {
     return (
-      <section className="workspace auth-view">
+      <div className="auth-view">
         <form className="login" onSubmit={login}>
-          <LogIn aria-hidden="true" />
-          <h1>Admin Login</h1>
+          <span className="login-badge"><LogIn aria-hidden="true" /></span>
+          <h1>Admin sign in</h1>
+          <p className="login-sub">Manage the knowledge base, documents, and leads.</p>
           <label htmlFor="admin-email">
             <span>Email</span>
-            <input id="admin-email" type="email" name="email" placeholder="Admin email..." autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input id="admin-email" type="email" name="email" placeholder="admin@email.com" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
           <label htmlFor="admin-password">
             <span>Password</span>
-            <input id="admin-password" type="password" name="password" placeholder="Password..." autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input id="admin-password" type="password" name="password" placeholder="••••••••" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
           </label>
-          <button type="submit">Login</button>
+          <button type="submit" className="primary-btn">Sign in</button>
         </form>
-      </section>
+      </div>
     );
   }
 
   return (
-    <section className="workspace admin-workspace">
-      <header className="topbar">
-        <div>
-          <p className="eyebrow">Knowledge base control</p>
-          <h1>Admin Dashboard</h1>
-        </div>
+    <div className="admin">
+      <header className="admin-head">
+        <p className="eyebrow">Knowledge base control</p>
+        <h1>Admin Dashboard</h1>
       </header>
 
       <div className="metrics">
-        <Metric icon={<MessageCircle />} label="Queries" value={data.analytics?.queryCount ?? 0} />
-        <Metric icon={<BarChart3 />} label="Last 24h" value={data.analytics?.recentQueryCount ?? 0} />
+        <Metric icon={<MessageCircle />} label="Total queries" value={data.analytics?.queryCount ?? 0} />
+        <Metric icon={<BarChart3 />} label="Last 24 hours" value={data.analytics?.recentQueryCount ?? 0} />
         <Metric icon={<Users />} label="Leads" value={data.analytics?.leadCount ?? 0} />
-        <Metric icon={<FileText />} label="Top Topic" value={data.analytics?.topTopic ?? "general"} />
+        <Metric icon={<FileText />} label="Top topic" value={data.analytics?.topTopic ?? "general"} />
       </div>
 
       <div className="insight-grid">
         <section className="panel">
-          <h2>Topic Breakdown</h2>
+          <h2>Topic breakdown</h2>
           <div className="topic-list">
             {(data.analytics?.topics || []).map((topic) => (
               <div className="topic-row" key={topic.topic}>
@@ -341,14 +376,14 @@ function AdminDashboard() {
 
         <section className="panel">
           <div className="panel-title">
-            <h2>Recent User Queries</h2>
-            <button type="button" className="small-button" onClick={() => downloadCsv("/admin/queries.csv", "hadaf-chatbot-queries.csv")}>CSV</button>
+            <h2>Recent user queries</h2>
+            <button type="button" className="small-button" onClick={() => downloadCsv("/admin/queries.csv", "hadaf-chatbot-queries.csv")}>Export CSV</button>
           </div>
           <div className="list compact query-list">
             {data.queries.map((item) => (
               <article key={item.id}>
                 <strong>{item.user_question}</strong>
-                <p>{item.query_category || "general"} - score {Number(item.retrieval_score || 0).toFixed(2)}</p>
+                <p>{item.query_category || "general"} · score {Number(item.retrieval_score || 0).toFixed(2)}</p>
               </article>
             ))}
             {!data.queries.length && <p className="empty">No user queries yet.</p>}
@@ -362,17 +397,17 @@ function AdminDashboard() {
           <form onSubmit={addFaq} className="stack">
             <label htmlFor="faq-question">
               <span>Question</span>
-              <input id="faq-question" placeholder="Question..." value={faq.question} onChange={(e) => setFaq({ ...faq, question: e.target.value })} />
+              <input id="faq-question" placeholder="Question…" value={faq.question} onChange={(e) => setFaq({ ...faq, question: e.target.value })} />
             </label>
             <label htmlFor="faq-answer">
-              <span>Official Answer</span>
-              <textarea id="faq-answer" placeholder="Official answer..." value={faq.answer} onChange={(e) => setFaq({ ...faq, answer: e.target.value })} />
+              <span>Official answer</span>
+              <textarea id="faq-answer" placeholder="Official answer…" value={faq.answer} onChange={(e) => setFaq({ ...faq, answer: e.target.value })} />
             </label>
             <label htmlFor="faq-category">
               <span>Category</span>
-              <input id="faq-category" placeholder="Category..." value={faq.category} onChange={(e) => setFaq({ ...faq, category: e.target.value })} />
+              <input id="faq-category" placeholder="Category…" value={faq.category} onChange={(e) => setFaq({ ...faq, category: e.target.value })} />
             </label>
-            <button type="submit"><Plus aria-hidden="true" /> Add FAQ</button>
+            <button type="submit" className="primary-btn"><Plus aria-hidden="true" /> Add FAQ</button>
           </form>
         </section>
 
@@ -385,7 +420,7 @@ function AdminDashboard() {
                 <input id="edit-faq-question" value={editingFaq.question} onChange={(e) => setEditingFaq({ ...editingFaq, question: e.target.value })} />
               </label>
               <label htmlFor="edit-faq-answer">
-                <span>Official Answer</span>
+                <span>Official answer</span>
                 <textarea id="edit-faq-answer" value={editingFaq.answer} onChange={(e) => setEditingFaq({ ...editingFaq, answer: e.target.value })} />
               </label>
               <label htmlFor="edit-faq-category">
@@ -393,7 +428,7 @@ function AdminDashboard() {
                 <input id="edit-faq-category" value={editingFaq.category} onChange={(e) => setEditingFaq({ ...editingFaq, category: e.target.value })} />
               </label>
               <div className="button-row">
-                <button type="submit"><Save aria-hidden="true" /> Save</button>
+                <button type="submit" className="primary-btn"><Save aria-hidden="true" /> Save</button>
                 <button type="button" className="secondary" onClick={() => setEditingFaq(null)}><X aria-hidden="true" /> Cancel</button>
               </div>
             </form>
@@ -418,18 +453,18 @@ function AdminDashboard() {
           <h2>Documents</h2>
           <form onSubmit={uploadDocument} className="stack upload-form">
             <label htmlFor="doc-title">
-              <span>Document Title</span>
-              <input id="doc-title" placeholder="Document title..." value={doc.title} onChange={(e) => setDoc({ ...doc, title: e.target.value })} />
+              <span>Document title</span>
+              <input id="doc-title" placeholder="Document title…" value={doc.title} onChange={(e) => setDoc({ ...doc, title: e.target.value })} />
             </label>
             <label htmlFor="doc-category">
               <span>Category</span>
-              <input id="doc-category" placeholder="Category..." value={doc.category} onChange={(e) => setDoc({ ...doc, category: e.target.value })} />
+              <input id="doc-category" placeholder="Category…" value={doc.category} onChange={(e) => setDoc({ ...doc, category: e.target.value })} />
             </label>
             <label htmlFor="doc-file">
-              <span>Document File</span>
+              <span>Document file</span>
               <input id="doc-file" type="file" accept=".txt,.md,.pdf,.docx" onChange={(e) => setDoc({ ...doc, file: e.target.files?.[0] || null })} />
             </label>
-            <button type="submit"><FileText aria-hidden="true" /> Upload Document</button>
+            <button type="submit" className="primary-btn"><FileText aria-hidden="true" /> Upload document</button>
           </form>
           <div className="list compact">
             {data.documents.map((item) => (
@@ -446,25 +481,24 @@ function AdminDashboard() {
 
         <section className="panel">
           <div className="panel-title">
-            <h2>Admission Leads</h2>
-            <button type="button" className="small-button" onClick={() => downloadCsv("/admin/leads.csv", "hadaf-admission-leads.csv")}>CSV</button>
+            <h2>Admission leads</h2>
+            <button type="button" className="small-button" onClick={() => downloadCsv("/admin/leads.csv", "hadaf-admission-leads.csv")}>Export CSV</button>
           </div>
           <div className="list compact">
-            {data.leads.map((item) => <article key={item.id}><strong>{item.name}</strong><p>{item.phone} - {item.program_interest || item.programInterest || "Program not specified"}</p></article>)}
+            {data.leads.map((item) => <article key={item.id}><strong>{item.name}</strong><p>{item.phone} · {item.program_interest || item.programInterest || "Program not specified"}</p></article>)}
           </div>
         </section>
       </div>
-    </section>
+    </div>
   );
 }
 
 function Metric({ icon, label, value }) {
   return (
     <div className="metric">
-      {icon}
-      <span>{label}</span>
+      <span className="metric-icon">{icon}</span>
+      <span className="metric-label">{label}</span>
       <strong>{value}</strong>
     </div>
   );
 }
-
