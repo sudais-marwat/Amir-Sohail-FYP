@@ -253,6 +253,7 @@ function AdminDashboard() {
   const [faq, setFaq] = useState({ question: "", answer: "", category: "admissions" });
   const [editingFaq, setEditingFaq] = useState(null);
   const [doc, setDoc] = useState({ title: "", category: "general", file: null });
+  const [tab, setTab] = useState("overview");
 
   useEffect(() => {
     if (!token) return;
@@ -345,6 +346,13 @@ function AdminDashboard() {
         <p className="admin-sub">Manage FAQs and documents, review leads, and see what students are asking.</p>
       </header>
 
+      <nav className="admin-tabs" aria-label="Dashboard sections">
+        <button type="button" className={tab === "overview" ? "active" : ""} onClick={() => setTab("overview")}>Overview</button>
+        <button type="button" className={tab === "knowledge" ? "active" : ""} onClick={() => setTab("knowledge")}>Knowledge base</button>
+        <button type="button" className={tab === "leads" ? "active" : ""} onClick={() => setTab("leads")}>Leads</button>
+      </nav>
+
+      {tab === "overview" && (<>
       <div className="metrics">
         <Metric icon={<MessageCircle />} label="Total queries" value={data.analytics?.queryCount ?? 0} />
         <Metric icon={<BarChart3 />} label="Last 24 hours" value={data.analytics?.recentQueryCount ?? 0} />
@@ -383,8 +391,10 @@ function AdminDashboard() {
           </div>
         </section>
       </div>
+      </>)}
 
-      <div className="admin-grid">
+      {tab === "knowledge" && (
+      <div className="admin-grid knowledge-grid">
         <section className="panel">
           <h2>Add FAQ</h2>
           <form onSubmit={addFaq} className="stack">
@@ -471,17 +481,23 @@ function AdminDashboard() {
             ))}
           </div>
         </section>
+      </div>
+      )}
 
+      {tab === "leads" && (
+      <div className="admin-grid leads-grid">
         <section className="panel">
           <div className="panel-title">
             <h2>Admission leads</h2>
             <button type="button" className="small-button" onClick={() => downloadCsv("/admin/leads.csv", "hadaf-admission-leads.csv")}>Export CSV</button>
           </div>
-          <div className="list compact">
+          <div className="list">
             {data.leads.map((item) => <article key={item.id}><strong>{item.name}</strong><p>{item.phone} · {item.program_interest || item.programInterest || "Program not specified"}</p></article>)}
+            {!data.leads.length && <p className="empty">No leads yet.</p>}
           </div>
         </section>
       </div>
+      )}
     </div>
   );
 }
