@@ -1,5 +1,8 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+const PRIMARY_MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
+const FALLBACK_MODEL = process.env.GEMINI_FALLBACK_MODEL || "gemini-3.1-flash-lite";
+
 function cleanModelAnswer(text) {
   return String(text || "")
     .replace(/\*\*/g, "")
@@ -7,6 +10,12 @@ function cleanModelAnswer(text) {
     .replace(/[ \t]+$/gm, "")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
+}
+
+async function runModel(genAI, modelName, prompt) {
+  const model = genAI.getGenerativeModel({ model: modelName });
+  const result = await model.generateContent(prompt);
+  return cleanModelAnswer(result.response.text());
 }
 
 export async function generateAnswer(question, context) {
@@ -19,7 +28,6 @@ export async function generateAnswer(question, context) {
   }
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: process.env.GEMINI_MODEL || "gemini-2.5-flash" });
   const prompt = [
     "You are the official Hadaf College website admission and student support assistant.",
     "Answer only from the provided context. If the context is insufficient, say so and suggest contacting admissions.",
@@ -37,6 +45,10 @@ export async function generateAnswer(question, context) {
     `Context:\n${context}`
   ].join("\n");
 
-  const result = await model.generateContent(prompt);
-  return cleanModelAnswer(result.response.text());
+  try {
+    return await runModel(genAI, PRIMARY_MODEL, prompt);
+  } catch (primaryError) {
+    console.warn(`Gemini primary model "${PRIMARY_MODEL}" failed, falling back to "${FALLBACK_MODEL}":`, primaryError.message);
+    return await runModel(genAI, FALLBACK_MODEL, prompt);
+  }
 }
